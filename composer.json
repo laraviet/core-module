@@ -1,0 +1,25 @@
+{
+    "name": "laraviet/core-module",
+    "description": "",
+    "authors": [
+        {
+            "name": "Laraviet",
+            "email": "thanhcttsp@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Core\\Providers\\CoreServiceProvider"
+            ],
+            "aliases": {
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Core\\": ""
+        }
+    },
+    "type": "laravel-module"
+}
