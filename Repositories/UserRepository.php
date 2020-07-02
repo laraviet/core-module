@@ -2,7 +2,7 @@
 
 namespace Modules\Core\Repositories;
 
-use App\User;
+use Modules\Core\Entities\User;
 use Modules\Core\Repositories\Contracts\UserRepositoryInterface;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
