@@ -11,7 +11,11 @@
     "require": {
         "laravelcollective/html": "^6.1",
         "nwidart/laravel-modules": "^7.1",
+        "laravel/helpers": "^1.2",
         "spatie/laravel-permission": "^3.13"
+    },
+    "require-dev": {
+        "laravel/ui": "^2.1"
     },
     "extra": {
         "laravel": {

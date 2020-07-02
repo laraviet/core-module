@@ -193,7 +193,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
             $limit = config('pagination.per_page_number');
         }
 
-        $pageName = $pageName ?? config('pagination.page_name');
+        $pageName = $pageName ?? config('core.page_name');
         $this->setPageName($pageName);
 
         return $this->setPageNo($page)->paginate($limit);

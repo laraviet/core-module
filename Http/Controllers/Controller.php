@@ -28,8 +28,8 @@ class Controller extends BaseController
         return $repository->advancedPaginate(
             $request->get('filter', []),
             $request->get('sort', []),
-            $request->get(config('pagination.page_name'), 1),
-            $request->get(config('pagination.per_page_name'), config('pagination.per_page_number'))
+            $request->get(config('core.page_name'), 1),
+            $request->get(config('core.per_page_name'), config('pagination.per_page_number'))
         );
     }
 }
