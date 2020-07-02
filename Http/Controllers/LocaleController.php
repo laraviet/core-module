@@ -17,7 +17,7 @@ class LocaleController extends Controller
         }
 
         session([
-            config('constant.session_locale') => $locale
+            config('core.session_locale') => $locale
         ]);
 
         return redirect()->back();

@@ -1,4 +1,4 @@
-@if ($message = Session::get(config('constant.session_success')))
+@if ($message = Session::get(config('core.session_success')))
     <script>
         toastr.success('{{ $message }}');
     </script>
