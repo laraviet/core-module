@@ -2,11 +2,11 @@
 
 namespace Modules\Core\Repositories\Contracts;
 
-use App\Exceptions\RepositoryException;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Modules\Core\Exceptions\RepositoryException;
 
 interface BaseRepositoryInterface
 {
@@ -95,4 +95,12 @@ interface BaseRepositoryInterface
      * @throws ModelNotFoundException|RepositoryException
      */
     public function deleteById($id): void;
+
+    /**
+     * @param $key
+     * @param $column
+     * @return array
+     */
+    public function toArray($key, $column): array;
+
 }

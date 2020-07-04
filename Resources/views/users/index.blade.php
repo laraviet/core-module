@@ -1,17 +1,17 @@
-@extends('core::layouts.admin.master')
+@extends('layouts.admin.master')
 
-@section('title') {{ __('labels.user') }} @endsection
+@section('title') {{ __('core::labels.user') }} @endsection
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/libs/toastr/toastr.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ theme_url('assets/libs/toastr/toastr.min.css')}}">
 @endsection
 
 @section('content')
 
-    @component('core::common-components.breadcrumb')
-        @slot('title') {{ __('labels.user') }} @endslot
-        @slot('li_1') {{ __('labels.home') }} @endslot
-        @slot('li_2') {{ __('labels.user') }} @endslot
+    @component('common-components.breadcrumb')
+        @slot('title') {{ __('core::labels.user') }} @endslot
+        @slot('li_1') {{ __('core::labels.home') }} @endslot
+        @slot('li_2') {{ __('core::labels.user') }} @endslot
     @endcomponent
 
 
@@ -26,7 +26,7 @@
                                     <input type="text"
                                            class="form-control"
                                            id="search-box"
-                                           placeholder="{{ __('labels.search') }}..."
+                                           placeholder="{{ __('core::labels.search') }}..."
                                            @if ($search = request()->get('filter')['search'])
                                            value="{{ $search  }}"
                                            @endif
@@ -41,7 +41,7 @@
                             <div class="text-sm-right">
                                 <a type="button" style="color: white;" href="{{ route('users.create') }}"
                                    class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i
-                                        class="mdi mdi-plus mr-1"></i> {{ __('labels.add_new') . ' ' . __('labels.user') }}
+                                        class="mdi mdi-plus mr-1"></i> {{ __('core::labels.add_new') . ' ' . __('core::labels.user') }}
                                 </a>
                             </div>
                         </div><!-- end col-->
@@ -51,9 +51,9 @@
                         <table class="table table-centered table-nowrap">
                             <thead class="thead-light">
                             <tr>
-                                <th>{{ __('labels.name') }}</th>
-                                <th>{{ __('labels.email') }}</th>
-                                <th>{{ __('labels.action') }}</th>
+                                <th>{{ __('core::labels.name') }}</th>
+                                <th>{{ __('core::labels.email') }}</th>
+                                <th>{{ __('core::labels.action') }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -65,17 +65,17 @@
                                         <a href="{{ route('users.edit', [$user->id]) }}"
                                            class="mr-3 text-primary" data-toggle="tooltip"
                                            data-placement="top" title=""
-                                           data-original-title="{{ __('labels.edit') }}"><i
+                                           data-original-title="{{ __('core::labels.edit') }}"><i
                                                 class="mdi mdi-pencil font-size-18"></i></a>
                                         {!! Form::open([
                                                 'method' => 'DELETE',
                                                 'route' => ['users.destroy', $user->id],
                                                 'style'=>'display:inline',
-                                                'onsubmit' => 'return confirm("' . __('labels.delete_confirm') . '");'
+                                                'onsubmit' => 'return confirm("' . __('core::labels.delete_confirm') . '");'
                                         ]) !!}
                                         <span data-toggle="tooltip"
                                               data-placement="top" title=""
-                                              data-original-title="{{ __('labels.delete') }}">
+                                              data-original-title="{{ __('core::labels.delete') }}">
                                             <button type="submit"
                                                     style="background: transparent; border: transparent; padding: 0;">
                                                 <i class="mdi mdi-close font-size-18 text-danger"></i>
@@ -101,8 +101,7 @@
 
 @section('script')
 
-    <script src="{{ URL::asset('assets/libs/toastr/toastr.min.js')}}"></script>
-    @include('core::common-components.functions.search')
-    @include('core::common-components.functions.toastr')
+    @include('common-components.functions.search')
+    @include('common-components.functions.toastr')
 
 @endsection

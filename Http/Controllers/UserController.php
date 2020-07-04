@@ -2,8 +2,8 @@
 
 namespace Modules\Core\Http\Controllers;
 
-use App\Exceptions\RepositoryException;
 use App\Http\Requests\CreateUserRequest;
+use DB;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
-use DB;
+use Modules\Core\Exceptions\RepositoryException;
 use Modules\Core\Repositories\Contracts\UserRepositoryInterface;
 
 class UserController extends Controller
@@ -74,7 +74,7 @@ class UserController extends Controller
         $user->assignRole([config('role.default_new_user_role')]);
 
         return redirect()->route('users.index')
-            ->with(config('constant.session_success'), __('labels.user') . ' ' . __('labels.create_success'));
+            ->with(config('core.session_success'), __('core::labels.user') . ' ' . __('core::labels.create_success'));
     }
 
     /**
@@ -97,7 +97,7 @@ class UserController extends Controller
      * @param Request $request
      * @param int $id
      * @return RedirectResponse
-     * @throws ValidationException
+     * @throws ValidationException|RepositoryException
      */
     public function update(Request $request, $id)
     {
@@ -116,14 +116,10 @@ class UserController extends Controller
             $input = array_except($input, array('password'));
         }
 
-        try {
-            $this->userRepository->updateById($id, $input);
+        $this->userRepository->updateById($id, $input);
 
-            return redirect()->route('users.index')
-                ->with(config('constant.session_success'), __('labels.user') . ' ' . __('labels.update_success'));
-        } catch (RepositoryException $e) {
-            return redirect()->back()->withInput();
-        }
+        return redirect()->route('users.index')
+            ->with(config('core.session_success'), __('core::labels.user') . ' ' . __('core::labels.update_success'));
     }
 
 
@@ -139,6 +135,6 @@ class UserController extends Controller
         $this->userRepository->deleteById($id);
 
         return redirect()->route('users.index')
-            ->with(config('constant.session_success'), __('labels.user') . ' ' . __('labels.delete_success'));
+            ->with(config('core.session_success'), __('core::labels.user') . ' ' . __('core::labels.delete_success'));
     }
 }

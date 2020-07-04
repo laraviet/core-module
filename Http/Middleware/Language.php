@@ -3,8 +3,8 @@
 namespace Modules\Core\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 
 class Language
 {
@@ -24,7 +24,7 @@ class Language
      */
     public function handle($request, Closure $next)
     {
-        //dd(session(config('constant.session_locale')));
+
         $this->app->setLocale(session(config('core.session_locale'), config('app.locale')));
 
         return $next($request);

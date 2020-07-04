@@ -32,4 +32,9 @@ class Controller extends BaseController
             $request->get(config('core.per_page_name'), config('pagination.per_page_number'))
         );
     }
+
+    protected function sortAscById(Request $request): void
+    {
+        $request->attributes->set('sort', ['id' => 'asc']);
+    }
 }

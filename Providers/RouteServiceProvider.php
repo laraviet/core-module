@@ -2,8 +2,8 @@
 
 namespace Modules\Core\Providers;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -13,6 +13,13 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $moduleNamespace = 'Modules\Core\Http\Controllers';
+
+    /**
+     * The path to the "home" route for your application.
+     *
+     * @var string
+     */
+    public const HOME = '/admin';
 
     /**
      * Called before routes are registered.

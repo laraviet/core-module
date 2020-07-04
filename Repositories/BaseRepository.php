@@ -2,13 +2,13 @@
 
 namespace Modules\Core\Repositories;
 
-use App\Exceptions\RepositoryException;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Modules\Core\Exceptions\RepositoryException;
 use Modules\Core\Repositories\Contracts\BaseRepositoryInterface;
 
 abstract class BaseRepository implements BaseRepositoryInterface
@@ -252,6 +252,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
         $this->delete($this->findById($id));
     }
 
+    /**
+     * @return Model
+     */
     protected function first(): Model
     {
         $this->newQuery()->eagerLoad()->setSelect()->setClauses()->setScopes();
@@ -263,6 +266,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $model;
     }
 
+    /**
+     * @param $scopeName
+     * @param null $value
+     * @return BaseRepositoryInterface
+     */
     protected function filter($scopeName, $value = null): BaseRepositoryInterface
     {
         if (func_num_args() == 1) {
@@ -281,6 +289,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this;
     }
 
+    /**
+     * @return Collection
+     */
     protected function get(): Collection
     {
         $this->newQuery()->eagerLoad()->setSelect()->setClauses()->setScopes();
@@ -292,6 +303,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $models;
     }
 
+    /**
+     * @return BaseRepositoryInterface
+     */
     protected function newQuery(): BaseRepositoryInterface
     {
         $this->query = $this->model->newQuery();
@@ -299,6 +313,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this;
     }
 
+    /**
+     * @param $limit
+     * @return BaseRepositoryInterface
+     */
     protected function limit($limit): BaseRepositoryInterface
     {
         $this->take = $limit;
@@ -306,6 +324,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this;
     }
 
+    /**
+     * @param $column
+     * @param string $direction
+     * @return BaseRepositoryInterface
+     */
     protected function orderBy($column, $direction = 'asc'): BaseRepositoryInterface
     {
         if (func_num_args() == 1) {
@@ -322,6 +345,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this;
     }
 
+    /**
+     * @param string $pageName
+     * @return BaseRepositoryInterface
+     */
     protected function setPageName(string $pageName): BaseRepositoryInterface
     {
         $this->pageName = $pageName;
@@ -329,6 +356,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this;
     }
 
+    /**
+     * @param int|null $pageNo
+     * @return BaseRepositoryInterface
+     */
     protected function setPageNo(?int $pageNo): BaseRepositoryInterface
     {
         $this->pageNo = $pageNo;
@@ -336,6 +367,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this;
     }
 
+    /**
+     * @param int $limit
+     * @param array $columns
+     * @return LengthAwarePaginator
+     */
     protected function paginate($limit = 25, array $columns = ['*']): LengthAwarePaginator
     {
         $this->newQuery()->eagerLoad()->setSelect()->setClauses()->setScopes();
@@ -347,6 +383,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $paginator;
     }
 
+    /**
+     * @param array $columns
+     * @return BaseRepositoryInterface
+     */
     protected function select(array $columns = ['*']): BaseRepositoryInterface
     {
         $this->selectedColumns = $columns;
@@ -354,6 +394,12 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this;
     }
 
+    /**
+     * @param $column
+     * @param $value
+     * @param string $operator
+     * @return BaseRepositoryInterface
+     */
     protected function where($column, $value, $operator = '='): BaseRepositoryInterface
     {
         $this->wheres[] = compact('column', 'value', 'operator');
@@ -361,6 +407,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this;
     }
 
+    /**
+     * @param $column
+     * @param $values
+     * @return BaseRepositoryInterface
+     */
     protected function whereIn($column, $values): BaseRepositoryInterface
     {
         $values = is_array($values) ? $values : [$values];
@@ -477,5 +528,24 @@ abstract class BaseRepository implements BaseRepositoryInterface
         $this->selectedColumns = null;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toArray($key, $column): array
+    {
+        return $this->get()->pluck($column, $key)->toArray();
+    }
+
+    /**
+     * @param $column
+     * @param $values
+     * @param $attributes
+     * @return
+     */
+    public function updateWhereIn($column, $values, $attributes)
+    {
+        return $this->model::whereIn($column, $values)->update($attributes);
     }
 }
