@@ -24,7 +24,7 @@ interface BaseRepositoryInterface
      * @return int
      */
     public function count(): int;
-
+    
     /**
      * @param $relations
      * @return $this|BaseRepositoryInterface
@@ -103,4 +103,20 @@ interface BaseRepositoryInterface
      */
     public function toArray($key, $column): array;
 
+    /**
+     * @param Collection $collection
+     * @return Collection
+     */
+    public function transformCollection(Collection $collection): Collection;
+
+    /**
+     * @param LengthAwarePaginator $paginator
+     * @return LengthAwarePaginator
+     */
+    public function transformPaginate(LengthAwarePaginator $paginator): LengthAwarePaginator;
+
+    /**
+     * @return Collection
+     */
+    public function index(): Collection;
 }

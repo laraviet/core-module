@@ -26,4 +26,5 @@ return [
     'user' => 'User',
     'logout' => 'Logout',
     'problem_msg' => 'There were some problems with your input.',
+    'confirm_action' => 'Are you sure to perform this action?'
 ];

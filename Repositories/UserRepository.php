@@ -2,6 +2,7 @@
 
 namespace Modules\Core\Repositories;
 
+use Illuminate\Database\Eloquent\Model;
 use Modules\Core\Entities\User;
 use Modules\Core\Repositories\Contracts\UserRepositoryInterface;
 
@@ -15,5 +16,14 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
 
         $this->model = $user;
+    }
+
+    /**
+     * @param Model $model
+     * @return mixed
+     */
+    function transformResource(Model $model)
+    {
+        return $model;
     }
 }

@@ -25,12 +25,12 @@ class Controller extends BaseController
         }
 
         /** @var LengthAwarePaginator $services */
-        return $repository->advancedPaginate(
+        return $repository->transformPaginate($repository->advancedPaginate(
             $request->get('filter', []),
             $request->get('sort', []),
             $request->get(config('core.page_name'), 1),
             $request->get(config('core.per_page_name'), config('pagination.per_page_number'))
-        );
+        ));
     }
 
     protected function sortAscById(Request $request): void
