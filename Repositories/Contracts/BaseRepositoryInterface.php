@@ -24,7 +24,7 @@ interface BaseRepositoryInterface
      * @return int
      */
     public function count(): int;
-    
+
     /**
      * @param $relations
      * @return $this|BaseRepositoryInterface
@@ -99,9 +99,10 @@ interface BaseRepositoryInterface
     /**
      * @param $key
      * @param $column
+     * @param null $scope
      * @return array
      */
-    public function toArray($key, $column): array;
+    public function toArray($key, $column, $scope = null): array;
 
     /**
      * @param Collection $collection

@@ -2,8 +2,8 @@
 
 namespace Modules\Core\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\ServiceProvider;
 use Modules\Core\Repositories\Contracts\UserRepositoryInterface;
 use Modules\Core\Repositories\UserRepository;
 
@@ -44,6 +44,8 @@ class CoreServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        //Load helper file
+        require_once(__DIR__ . '/../Helpers/functions.php');
     }
 
     /**

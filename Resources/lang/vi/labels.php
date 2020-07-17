@@ -26,5 +26,12 @@ return [
     'user' => 'Người Dùng',
     'logout' => 'Đăng Xuất',
     'problem_msg' => 'Có một vài vấn đề với form nhập liệu của bạn.',
-    'confirm_action' => 'Bạn có chắc chắn với hành động này?'
+    'confirm_action' => 'Bạn có chắc chắn với hành động này?',
+    'detail' => 'Chi tiết',
+    'contact' => 'Liên hệ',
+    'complete' => 'Hoàn thành',
+    'dob' => 'Ngày sinh',
+    'phone' => 'Số điện thoại',
+    'job' => 'Nghề nghiệp',
+    'address' => 'Đia chỉ',
 ];

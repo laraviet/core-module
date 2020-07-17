@@ -63,6 +63,13 @@ abstract class BaseRepository implements BaseRepositoryInterface
     protected $whereIns = [];
 
     /**
+     * Array of one or more where in clause parameters.
+     *
+     * @var array
+     */
+    protected $whereNotIns = [];
+
+    /**
      * Array of one or more ORDER BY column/value pairs.
      *
      * @var array
@@ -330,7 +337,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     /**
      * @return Collection
      */
-    protected function get(): Collection
+    public function get(): Collection
     {
         $this->newQuery()->eagerLoad()->setSelect()->setClauses()->setScopes();
 
@@ -475,6 +482,20 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
+     * @param $column
+     * @param $values
+     * @return BaseRepositoryInterface
+     */
+    public function whereNotIn($column, $values): BaseRepositoryInterface
+    {
+        $values = is_array($values) ? $values : [$values];
+
+        $this->whereNotIns[] = compact('column', 'values');
+
+        return $this;
+    }
+
+    /**
      * Add relationships to the query builder to eager load.
      *
      * @return BaseRepository
@@ -525,6 +546,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
         foreach ($this->whereIns as $whereIn) {
             $this->query->whereIn($whereIn['column'], $whereIn['values']);
+        }
+
+        foreach ($this->whereNotIns as $whereIn) {
+            $this->query->whereNotIn($whereIn['column'], $whereIn['values']);
         }
 
         foreach ($this->orderBys as $orderBy) {
@@ -598,8 +623,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function toArray($key, $column): array
+    public function toArray($key, $column, $scope = null): array
     {
+        if ($scope) $this->scopes[$scope] = null;
+
         return $this->get()->pluck($column, $key)->toArray();
     }
 

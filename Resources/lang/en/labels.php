@@ -26,5 +26,12 @@ return [
     'user' => 'User',
     'logout' => 'Logout',
     'problem_msg' => 'There were some problems with your input.',
-    'confirm_action' => 'Are you sure to perform this action?'
+    'confirm_action' => 'Are you sure to perform this action?',
+    'detail' => 'Detail',
+    'contact' => 'Contact',
+    'complete' => 'Complete',
+    'dob' => 'Date of Birth',
+    'phone' => 'Phone number',
+    'job' => 'Jobs',
+    'address' => 'Address',
 ];
