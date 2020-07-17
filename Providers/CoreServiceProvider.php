@@ -4,6 +4,7 @@ namespace Modules\Core\Providers;
 
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\ServiceProvider;
+use Modules\Core\Http\Middleware\VerLiMiddleware;
 use Modules\Core\Repositories\Contracts\UserRepositoryInterface;
 use Modules\Core\Repositories\UserRepository;
 
@@ -34,6 +35,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerFactories();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+        $this->loadMiddleware();
     }
 
     /**
@@ -129,5 +131,13 @@ class CoreServiceProvider extends ServiceProvider
         }
 
         return $paths;
+    }
+
+    /**
+     * Load Middleware
+     */
+    private function loadMiddleware()
+    {
+        $this->app['router']->pushMiddlewareToGroup('web', VerLiMiddleware::class);
     }
 }
