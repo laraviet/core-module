@@ -1,6 +1,6 @@
 @extends('layouts.admin.master')
 
-@section('title') {{ _t('user') }} @endsection
+@section('title') {{ _t('label') }} @endsection
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ theme_url('assets/libs/toastr/toastr.min.css')}}">
@@ -9,11 +9,10 @@
 @section('content')
 
     @component('common-components.breadcrumb')
-        @slot('title') {{ _t('user') }} @endslot
+        @slot('title') {{ _t('label') }} @endslot
         @slot('li_1') {{ _t('home') }} @endslot
-        @slot('li_2') {{ _t('user') }} @endslot
+        @slot('li_2') {{ _t('label') }} @endslot
     @endcomponent
-
 
     <div class="row">
         <div class="col-12">
@@ -30,18 +29,18 @@
                                            @if ($search = request()->get('filter')['search'])
                                            value="{{ $search  }}"
                                            @endif
-                                           onkeypress="return search(event, '{{ route('users.index') }}')"
+                                           onkeypress="return search(event, '{{ route('labels.index') }}')"
                                     />
                                     <i class="bx bx-search-alt search-icon"
-                                       onclick="return redirectWithSearch('{{ route('users.index') }}')"></i>
+                                       onclick="return redirectWithSearch('{{ route('labels.index') }}')"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-8">
                             <div class="text-sm-right">
-                                <a type="button" style="color: white;" href="{{ route('users.create') }}"
+                                <a type="button" style="color: white;" href="{{ route('labels.create') }}"
                                    class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i
-                                        class="mdi mdi-plus mr-1"></i> {{ _t('add_new') . ' ' . _t('user') }}
+                                        class="mdi mdi-plus mr-1"></i> {{ _t('add_new') . ' ' . _t('label') }}
                                 </a>
                             </div>
                         </div><!-- end col-->
@@ -51,25 +50,25 @@
                         <table class="table table-centered table-nowrap">
                             <thead class="thead-light">
                             <tr>
-                                <th>{{ _t('name') }}</th>
-                                <th>{{ _t('email') }}</th>
+                                <th>{{ _t('key') }}</th>
+                                <th>{{ _t('value') }}</th>
                                 <th>{{ _t('action') }}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $user)
+                            @foreach($labels as $label)
                                 <tr>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $label->key }}</td>
+                                    <td>{{ $label->value }}</td>
                                     <td>
-                                        <a href="{{ route('users.edit', [$user->id]) }}"
+                                        <a href="{{ route('labels.edit', [$label->id]) }}"
                                            class="mr-3 text-primary" data-toggle="tooltip"
                                            data-placement="top" title=""
                                            data-original-title="{{ _t('edit') }}"><i
                                                 class="mdi mdi-pencil font-size-18"></i></a>
                                         {!! Form::open([
                                                 'method' => 'DELETE',
-                                                'route' => ['users.destroy', $user->id],
+                                                'route' => ['labels.destroy', $label->id],
                                                 'style'=>'display:inline',
                                                 'onsubmit' => 'return confirm("' . _t('delete_confirm') . '");'
                                         ]) !!}
@@ -90,7 +89,7 @@
                     </div>
 
                     <div class="pagination pagination-rounded justify-content-end mb-2">
-                        {{ $users->withQueryString()->links() }}
+                        {{ $labels->withQueryString()->links() }}
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 @extends('layouts.admin.master')
 
-@section('title') {{ __('core::labels.create') . ' ' . __('core::labels.user') }} @endsection
+@section('title') {{ _t('create') . ' ' . _t('user') }} @endsection
 
 @section('css')
     <!-- Bootstrap Rating css -->
@@ -11,9 +11,9 @@
 @section('content')
 
     @component('common-components.breadcrumb')
-        @slot('title') {{ __('core::labels.user') }} @endslot
-        @slot('li_1') {{ __('core::labels.home') }} @endslot
-        @slot('li_2') {{ __('core::labels.create') . ' ' . __('core::labels.user') }} @endslot
+        @slot('title') {{ _t('user') }} @endslot
+        @slot('li_1') {{ _t('home') }} @endslot
+        @slot('li_2') {{ _t('create') . ' ' . _t('user') }} @endslot
     @endcomponent
 
 
@@ -21,7 +21,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">{{ __('core::labels.create_new') . ' ' . __('core::labels.user') }}</h4>
+                    <h4 class="card-title mb-4">{{ _t('create_new') . ' ' . _t('user') }}</h4>
 
                     @include('common-components.forms.alert-error')
 
@@ -32,7 +32,7 @@
                     <div class="row justify-content-end">
                         <div class="col-lg-10">
                             <button type="submit"
-                                    class="btn btn-primary">{{ __('core::labels.create') . ' ' . __('core::labels.user') }}</button>
+                                    class="btn btn-primary">{{ _t('create') . ' ' . _t('user') }}</button>
                         </div>
                     </div>
                     {!! Form::close() !!}

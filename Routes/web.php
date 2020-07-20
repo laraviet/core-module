@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('roles', 'RoleController');
     Route::resource('users', 'UserController');
+    Route::resource('/labels', 'LabelController');
 });
 
 Route::get('locale/switch/{locale}', 'LocaleController@update');

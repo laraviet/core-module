@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
+use Modules\Core\Repositories\Contracts\LabelRepositoryInterface;
 
 if ( ! function_exists('format_currency')) {
     function format_currency($amount)
@@ -71,5 +73,16 @@ if ( ! function_exists('titleByKey')) {
         $item = $collection->where('key', $key)->first();
 
         return $item ? $item->title : null;
+    }
+}
+
+if ( ! function_exists('_t')) {
+    function _t($key)
+    {
+        return Cache::tags("label.{$key}")->rememberForever("label.{$key}." . App::getLocale(), function () use ($key) {
+            $labelRepository = app(LabelRepositoryInterface::class);
+
+            return $labelRepository->findByColumn($key, 'key')->translate(App::getLocale())->value;
+        });
     }
 }
