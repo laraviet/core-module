@@ -42,14 +42,8 @@ class VerLiMiddleware
         $json = json_decode(file_get_contents($file));
         $long = 60 * 24;
 
-        if (Cache::has('l.v.s') && Cache::has('l.v.b')) {
-            $vt = Cache::remember('l.vt', $long, function () use ($json) {
-                return base64_decode($json->vt);
-            });
-
-            if (Carbon::parse($vt) < Carbon::now()) {
-                abort(500);
-            }
+        if (Cache::has('l.v.c')) {
+            $this->checkVT($json, $long);
         } else {
             try {
                 $response = Http::timeout(3)->post("{$bu}/api/v", [
@@ -61,20 +55,25 @@ class VerLiMiddleware
                 } else {
                     //write result to disk
                     file_put_contents($file, $response->body());
-                    Cache::put('l.v.s', $response->status(), $long);
-                    Cache::put('l.v.b', $response->body(), $long);
+                    Cache::put('l.v.c', 'ok', $long);
                 }
             } catch (ConnectionException $ex) {
-                $vt = Cache::remember('l.vt', $long, function () use ($json) {
-                    return base64_decode($json->vt);
-                });
-
-                if (Carbon::parse($vt) < Carbon::now()) {
-                    abort(500);
-                }
+                $this->checkVT($json, $long);
+                Cache::put('l.v.c', 'ok', $long);
             }
         }
 
         return $next($request);
+    }
+
+    private function checkVT($json, $long)
+    {
+        $vt = Cache::remember('l.vt', $long, function () use ($json) {
+            return base64_decode($json->vt);
+        });
+
+        if (Carbon::parse($vt) < Carbon::now()) {
+            abort(500);
+        }
     }
 }
