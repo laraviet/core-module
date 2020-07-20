@@ -57,9 +57,10 @@ class LabelTableSeeder extends Seeder
             ["key" => "complete", "vi" => ["value" => "Hoàn thành"], "en" => ["value" => "Complete"]],
             ["key" => "no_account", "vi" => ["value" => "Chưa có tài khoản?"], "en" => ["value" => "Don't have an account?"]],
             ["key" => "has_account", "vi" => ["value" => "Đã có tài khoản?"], "en" => ["value" => "Already have an account?"]],
+            ["key" => "forgot_pwd", "vi" => ["value" => "Quên mật khẩu?"], "en" => ["value" => "Forgot your password?"]],
+            ["key" => "reset_pwd", "vi" => ["value" => "Đặt lại mật khẩu."], "en" => ["value" => "Reset Password"]],
+            ["key" => "send_reset_pwd_email", "vi" => ["value" => "Gửi link đặt lại mật khẩu"], "en" => ["value" => "Send Password Reset Link"]],
         ];
-        //
-
 
         foreach ($labels as $label) {
             $label['module'] = $module;

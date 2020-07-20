@@ -9,9 +9,6 @@
     @endsection
 
     @section('content')
-        <div class="home-btn d-none d-sm-block">
-            <a href="index" class="text-dark"><i class="fas fa-home h2"></i></a>
-        </div>
         <div class="account-pages my-5 pt-5">
             <div class="container">
                 <div class="row justify-content-center">
@@ -60,6 +57,11 @@
                                         <button class="btn btn-primary btn-block waves-effect waves-light"
                                                 type="submit">{{ _t('login') }}
                                         </button>
+                                    </div>
+                                    <div class="mt-4 text-center">
+                                        <a href="{{ route('password.request') }}" class="text-muted"><i
+                                                class="mdi mdi-lock mr-1"></i>
+                                            {{ _t('forgot_pwd') }}</a>
                                     </div>
                                     {!! Form::close() !!}
                                 </div>

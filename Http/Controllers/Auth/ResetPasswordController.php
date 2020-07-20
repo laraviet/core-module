@@ -5,6 +5,8 @@ namespace Modules\Core\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Modules\Core\Providers\RouteServiceProvider;
@@ -45,5 +47,22 @@ class ResetPasswordController extends Controller
         return view('core::auth.passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
+    }
+
+    /**
+     * Get the response for a successful password reset.
+     *
+     * @param Request $request
+     * @param string $response
+     * @return RedirectResponse|JsonResponse
+     */
+    protected function sendResetResponse(Request $request, $response)
+    {
+        if ($request->wantsJson()) {
+            return new JsonResponse(['message' => trans($response)], 200);
+        }
+
+        return redirect($this->redirectPath())
+            ->with(config('core.session_success'), trans($response));
     }
 }

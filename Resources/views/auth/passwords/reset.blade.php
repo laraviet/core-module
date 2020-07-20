@@ -1,65 +1,74 @@
-@extends('layouts.app')
+@extends('layouts.admin.master-without-nav')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+@section('title')
+    {{ _t('reset_pwd') }}
+@endsection
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
+@section('body')
+    <body>
+    @endsection
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+    @section('content')
+        <div class="account-pages my-5 pt-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6 col-xl-5">
+                        <div class="card overflow-hidden">
+                            <div class="bg-soft-primary">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <div class="text-primary p-4">
+                                            <h5 class="text-primary">{{ _t('reset_pwd') }}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-5 align-self-end">
+                                        <img src="{{ theme_url('assets/images/profile-img.png') }}" alt=""
+                                             class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="card-body">
+                                    <div class="p-2">
+                                        @include('common-components.forms.alert-error')
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                        {!! Form::open(['route' => 'password.update','method'=>'POST', 'class' => 'form-horizontal']) !!}
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                                        <input type="hidden" name="token" value="{{ $token }}">
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                        <div class="form-group">
+                                            <label for="email">{{ _t('email') }}</label>
+                                            {!! Form::text('email', $email ?? old('email'), ['placeholder' => _t('email'),'class' => 'form-control']) !!}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="password">{{ _t('password') }}</label>
+                                            {!! Form::password('password', ['placeholder' => _t('password'),'class' => 'form-control']) !!}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="password">{{ _t('confirm_password') }}</label>
+                                            {!! Form::password('password_confirmation', ['placeholder' => _t('confirm_password'),'class' => 'form-control']) !!}
+                                        </div>
+
+                                        <div class="mt-3">
+                                            <button class="btn btn-primary btn-block waves-effect waves-light"
+                                                    type="submit">{{ _t('reset_pwd') }}
+                                            </button>
+                                        </div>
+                                        {!! Form::close() !!}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="mt-5 text-center">
+                            <p>
+                                ©
+                                <script>document.write(new Date().getFullYear())</script>
+                                {{ config('app.name') }}
+                            </p>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 @endsection
