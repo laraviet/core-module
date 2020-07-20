@@ -19,15 +19,6 @@ class LabelRepository extends BaseRepository implements LabelRepositoryInterface
     }
 
     /**
-     * @param Model $model
-     * @return mixed
-     */
-    function transformResource(Model $model)
-    {
-        return $model;
-    }
-
-    /**
      * @inheritDoc
      */
     public function update(Model $model, array $attributes): Model

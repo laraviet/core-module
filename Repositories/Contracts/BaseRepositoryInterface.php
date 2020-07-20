@@ -103,21 +103,4 @@ interface BaseRepositoryInterface
      * @return array
      */
     public function toArray($key, $column, $scope = null): array;
-
-    /**
-     * @param Collection $collection
-     * @return Collection
-     */
-    public function transformCollection(Collection $collection): Collection;
-
-    /**
-     * @param LengthAwarePaginator $paginator
-     * @return LengthAwarePaginator
-     */
-    public function transformPaginate(LengthAwarePaginator $paginator): LengthAwarePaginator;
-
-    /**
-     * @return Collection
-     */
-    public function index(): Collection;
 }

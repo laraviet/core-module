@@ -23,99 +23,37 @@ class LabelTableSeeder extends Seeder
         Label::where('module', $module)->delete();
 
         $labels = [
-            ["key" => "home", "value" => "Trang chủ", "en" => [
-                "value" => "Home",
-            ]],
-            ["key" => "name", "value" => "Tên", "en" => [
-                "value" => "Name",
-            ]],
-            ["key" => "email", "value" => "Email", "en" => [
-                "value" => "Email",
-            ]],
-            ["key" => "action", "value" => "Hành động", "en" => [
-                "value" => "Action",
-            ]],
-            ["key" => "search", "value" => "Tìm kiếm", "en" => [
-                "value" => "Search",
-            ]],
-            ["key" => "user", "value" => "Người dùng", "en" => [
-                "value" => "User",
-            ]],
-            ["key" => "create", "value" => "Tạo mới", "en" => [
-                "value" => "Create",
-            ]],
-            ["key" => "create_new", "value" => "Tạo mới", "en" => [
-                "value" => "Create New",
-            ]],
-            ["key" => "create_success", "value" => "được tạo mới thành công", "en" => [
-                "value" => "Create Success",
-            ]],
-            ["key" => "add", "value" => "Thêm mới", "en" => [
-                "value" => "Add",
-            ]],
-            ["key" => "add_new", "value" => "Thêm mới", "en" => [
-                "value" => "Add New",
-            ]],
-            ["key" => "edit", "value" => "Sửa", "en" => [
-                "value" => "Edit",
-            ]],
-            ["key" => "update", "value" => "Cập nhật", "en" => [
-                "value" => "Update",
-            ]],
-            ["key" => "update_success", "value" => "được cập nhật thành công", "en" => [
-                "value" => "Update Success",
-            ]],
-            ["key" => "delete", "value" => "Xóa", "en" => [
-                "value" => "Delete",
-            ]],
-            ["key" => "delete_confirm", "value" => "Bạn có thực sự muốn xóa item này không?", "en" => [
-                "value" => "Are you sure want to delete this item?",
-            ]],
-            ["key" => "delete_success", "value" => "được xóa thành công", "en" => [
-                "value" => "delete success",
-            ]],
-            ["key" => "label", "value" => "Nhãn", "en" => [
-                "value" => "Label",
-            ]],
-            ["key" => "password", "value" => "Mật khẩu", "en" => [
-                "value" => "Pasword",
-            ]],
-            ["key" => "remember_me", "value" => "Lưu đăng nhập", "en" => [
-                "value" => "Remember Me",
-            ]],
-            ["key" => "login", "value" => "Đăng nhập", "en" => [
-                "value" => "Login",
-            ]],
-            ["key" => "register", "value" => "Đăng ký", "en" => [
-                "value" => "Register",
-            ]],
-            ["key" => "confirm_password", "value" => "Xác nhận mật khẩu", "en" => [
-                "value" => "Confirm Password",
-            ]],
-            ["key" => "enter", "value" => "Thêm", "en" => [
-                "value" => "Enter",
-            ]],
-            ["key" => "logout", "value" => "Đăng xuất", "en" => [
-                "value" => "Logout",
-            ]],
-            ["key" => "problem_msg", "value" => "Có một vài vấn đề với form nhập liệu của bạn.", "en" => [
-                "value" => "There is some problems with your forms.",
-            ]],
-            ["key" => "detail", "value" => "Chi tiết", "en" => [
-                "value" => "Detail",
-            ]],
-            ["key" => "contact", "value" => "Liên hệ", "en" => [
-                "value" => "Contact",
-            ]],
-            ["key" => "key", "value" => "Key", "en" => [
-                "value" => "Key",
-            ]],
-            ["key" => "value", "value" => "Giá trị", "en" => [
-                "value" => "Value",
-            ]],
-            ["key" => "complete", "value" => "Hoàn thành", "en" => [
-                "value" => "Complete",
-            ]],
+            ["key" => "home", "vi" => ["value" => "Trang chủ"], "en" => ["value" => "Home"]],
+            ["key" => "name", "vi" => ["value" => "Tên"], "en" => ["value" => "Name"]],
+            ["key" => "email", "vi" => ["value" => "Email"], "en" => ["value" => "Email"]],
+            ["key" => "action", "vi" => ["value" => "Hành động"], "en" => ["value" => "Action"]],
+            ["key" => "search", "vi" => ["value" => "Tìm kiếm"], "en" => ["value" => "Search"]],
+            ["key" => "user", "vi" => ["value" => "Người dùng"], "en" => ["value" => "User"]],
+            ["key" => "create", "vi" => ["value" => "Tạo mới"], "en" => ["value" => "Create"]],
+            ["key" => "create_new", "vi" => ["value" => "Tạo mới"], "en" => ["value" => "Create New"]],
+            ["key" => "create_success", "vi" => ["value" => "được tạo mới thành công"], "en" => ["value" => "Create Success"]],
+            ["key" => "add", "vi" => ["value" => "Thêm mới"], "en" => ["value" => "Add"]],
+            ["key" => "add_new", "vi" => ["value" => "Thêm mới"], "en" => ["value" => "Add New"]],
+            ["key" => "edit", "vi" => ["value" => "Sửa"], "en" => ["value" => "Edit"]],
+            ["key" => "update", "vi" => ["value" => "Cập nhật"], "en" => ["value" => "Update"]],
+            ["key" => "update_success", "vi" => ["value" => "được cập nhật thành công"], "en" => ["value" => "Update Success"]],
+            ["key" => "delete", "vi" => ["value" => "Xóa"], "en" => ["value" => "Delete"]],
+            ["key" => "delete_confirm", "vi" => ["value" => "Bạn có thực sự muốn xóa item này không?"], "en" => ["value" => "Are you sure want to delete this item?"]],
+            ["key" => "delete_success", "vi" => ["value" => "được xóa thành công"], "en" => ["value" => "delete success"]],
+            ["key" => "label", "vi" => ["value" => "Nhãn"], "en" => ["value" => "Label"]],
+            ["key" => "password", "vi" => ["value" => "Mật khẩu"], "en" => ["value" => "Pasword"]],
+            ["key" => "remember_me", "vi" => ["value" => "Lưu đăng nhập"], "en" => ["value" => "Remember Me"]],
+            ["key" => "login", "vi" => ["value" => "Đăng nhập"], "en" => ["value" => "Login"]],
+            ["key" => "register", "vi" => ["value" => "Đăng ký"], "en" => ["value" => "Register"]],
+            ["key" => "confirm_password", "vi" => ["value" => "Xác nhận mật khẩu"], "en" => ["value" => "Confirm Password"]],
+            ["key" => "enter", "vi" => ["value" => "Thêm"], "en" => ["value" => "Enter"]],
+            ["key" => "logout", "vi" => ["value" => "Đăng xuất"], "en" => ["value" => "Logout"]],
+            ["key" => "problem_msg", "vi" => ["value" => "Có một vài vấn đề với form nhập liệu của bạn."], "en" => ["value" => "There is some problems with your forms."]],
+            ["key" => "detail", "vi" => ["value" => "Chi tiết"], "en" => ["value" => "Detail"]],
+            ["key" => "contact", "vi" => ["value" => "Liên hệ"], "en" => ["value" => "Contact"]],
+            ["key" => "key", "vi" => ["value" => "Key"], "en" => ["value" => "Key"]],
+            ["key" => "value", "vi" => ["value" => "Giá trị"], "en" => ["value" => "Value"]],
+            ["key" => "complete", "vi" => ["value" => "Hoàn thành"], "en" => ["value" => "Complete"]],
         ];
         //
 

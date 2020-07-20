@@ -2,8 +2,6 @@
 
 namespace Modules\Core\Http\Controllers;
 
-use App\Http\Requests\CreateUserRequest;
-use DB;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -12,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Modules\Core\Exceptions\RepositoryException;
+use Modules\Core\Http\Requests\CreateUserRequest;
 use Modules\Core\Repositories\Contracts\UserRepositoryInterface;
 
 class UserController extends Controller
@@ -74,7 +73,7 @@ class UserController extends Controller
         $user->assignRole([config('role.default_new_user_role')]);
 
         return redirect()->route('users.index')
-            ->with(config('core.session_success'), __('core::labels.user') . ' ' . __('core::labels.create_success'));
+            ->with(config('core.session_success'), _t('user') . ' ' . _t('create_success'));
     }
 
     /**
@@ -107,7 +106,6 @@ class UserController extends Controller
             'password' => 'same:confirm-password',
         ]);
 
-
         $input = $request->all();
 
         if ( ! empty($input['password'])) {
@@ -119,7 +117,7 @@ class UserController extends Controller
         $this->userRepository->updateById($id, $input);
 
         return redirect()->route('users.index')
-            ->with(config('core.session_success'), __('core::labels.user') . ' ' . __('core::labels.update_success'));
+            ->with(config('core.session_success'), _t('user') . ' ' . _t('update_success'));
     }
 
 
@@ -135,6 +133,6 @@ class UserController extends Controller
         $this->userRepository->deleteById($id);
 
         return redirect()->route('users.index')
-            ->with(config('core.session_success'), __('core::labels.user') . ' ' . __('core::labels.delete_success'));
+            ->with(config('core.session_success'), _t('user') . ' ' . _t('delete_success'));
     }
 }

@@ -122,48 +122,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function index(): Collection
-    {
-        return $this->transformCollection($this->all());
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function count(): int
     {
         return $this->get()->count();
     }
-
-    /**
-     * @param Collection $collection
-     * @return Collection
-     */
-    public function transformCollection(Collection $collection): Collection
-    {
-        return $collection->map(function ($model) {
-            return $this->transformResource($model);
-        });
-    }
-
-    /**
-     * @param LengthAwarePaginator $paginator
-     * @return LengthAwarePaginator
-     */
-    public function transformPaginate(LengthAwarePaginator $paginator): LengthAwarePaginator
-    {
-        return tap($paginator, function ($paginatedInstance) {
-            return $paginatedInstance->getCollection()->transform(function ($model) {
-                return $this->transformResource($model);
-            });
-        });
-    }
-
-    /**
-     * @param Model $model
-     * @return mixed
-     */
-    abstract function transformResource(Model $model);
 
     /**
      * @inheritDoc
@@ -225,16 +187,16 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function advancedPaginate($filters = [], $sorts = [], $page = 1, $limit = null, $pageName = null): LengthAwarePaginator
     {
-        if (!empty($filters)) {
+        if ( ! empty($filters)) {
             $this->filter($filters);
         }
-        if (!empty($sorts)) {
+        if ( ! empty($sorts)) {
             $this->orderBy($sorts);
         } else {
             $this->orderBy(['id' => 'desc']);
         }
 
-        if (!$limit) {
+        if ( ! $limit) {
             $limit = config('pagination.per_page_number');
         }
 
@@ -257,7 +219,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function update(Model $model, array $attributes): Model
     {
-        if (!$model->update($attributes)) {
+        if ( ! $model->update($attributes)) {
             throw RepositoryException::updateFailed();
         }
 
@@ -281,7 +243,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     public function delete(Model $model): void
     {
         try {
-            if (!$model->delete()) {
+            if ( ! $model->delete()) {
                 throw new RepositoryException();
             }
         } catch (Exception $e) {
@@ -321,14 +283,14 @@ abstract class BaseRepository implements BaseRepositoryInterface
         if (func_num_args() == 1) {
             $filters = func_get_arg(0);
             foreach ($filters as $scopeName => $value) {
-                $this->scopes[$scopeName] = $value;
+                $this->scopes[ $scopeName ] = $value;
             }
 
             return $this;
         }
 
         if ($value) {
-            $this->scopes[$scopeName] = $value;
+            $this->scopes[ $scopeName ] = $value;
         }
 
         return $this;
@@ -556,7 +518,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
             $this->query->orderBy($orderBy['column'], $orderBy['direction']);
         }
 
-        if (isset($this->take) and !is_null($this->take)) {
+        if (isset($this->take) and ! is_null($this->take)) {
             $this->query->take($this->take);
         }
 
@@ -625,7 +587,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function toArray($key, $column, $scope = null): array
     {
-        if ($scope) $this->scopes[$scope] = null;
+        if ($scope) $this->scopes[ $scope ] = null;
 
         return $this->get()->pluck($column, $key)->toArray();
     }

@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">
-                        <div class="col-sm-4">
+                        <div class="col-sm-12 text-right">
                             <div class="search-box mr-2 mb-2 d-inline-block">
                                 <div class="position-relative">
                                     <input type="text"
@@ -36,14 +36,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-8">
-                            <div class="text-sm-right">
-                                <a type="button" style="color: white;" href="{{ route('labels.create') }}"
-                                   class="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"><i
-                                        class="mdi mdi-plus mr-1"></i> {{ _t('add_new') . ' ' . _t('label') }}
-                                </a>
-                            </div>
-                        </div><!-- end col-->
                     </div>
 
                     <div class="table-responsive">
@@ -52,7 +44,7 @@
                             <tr>
                                 <th>{{ _t('key') }}</th>
                                 <th>{{ _t('value') }}</th>
-                                <th>{{ _t('action') }}</th>
+                                <th class="text-center">{{ _t('action') }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -60,27 +52,13 @@
                                 <tr>
                                     <td>{{ $label->key }}</td>
                                     <td>{{ $label->value }}</td>
-                                    <td>
+                                    <td class="text-center">
                                         <a href="{{ route('labels.edit', [$label->id]) }}"
                                            class="mr-3 text-primary" data-toggle="tooltip"
                                            data-placement="top" title=""
-                                           data-original-title="{{ _t('edit') }}"><i
-                                                class="mdi mdi-pencil font-size-18"></i></a>
-                                        {!! Form::open([
-                                                'method' => 'DELETE',
-                                                'route' => ['labels.destroy', $label->id],
-                                                'style'=>'display:inline',
-                                                'onsubmit' => 'return confirm("' . _t('delete_confirm') . '");'
-                                        ]) !!}
-                                        <span data-toggle="tooltip"
-                                              data-placement="top" title=""
-                                              data-original-title="{{ _t('delete') }}">
-                                            <button type="submit"
-                                                    style="background: transparent; border: transparent; padding: 0;">
-                                                <i class="mdi mdi-close font-size-18 text-danger"></i>
-                                            </button>
-                                        </span>
-                                        {!! Form::close() !!}
+                                           data-original-title="{{ _t('edit') }}">
+                                            <i class="mdi mdi-pencil font-size-18"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
