@@ -1,7 +1,7 @@
 @extends('layouts.admin.master-without-nav')
 
 @section('title')
-    {{ __('core::labels.login') }}
+    {{ _t('login') }}
 @endsection
 
 @section('body')
@@ -22,7 +22,7 @@
                                     <div class="col-7">
                                         <div class="text-primary p-4">
                                             <h5 class="text-primary">Welcome Back !</h5>
-                                            <p>Sign in to continue to Papiu.</p>
+                                            <p>Sign in to continue to ViralSoft.</p>
                                         </div>
                                     </div>
                                     <div class="col-5 align-self-end">
@@ -40,25 +40,25 @@
 
                                     {!! Form::open(['route' => 'login','method'=>'POST', 'class' => 'form-horizontal']) !!}
                                     <div class="form-group">
-                                        <label for="email">{{ __('core::labels.email') }}</label>
-                                        {!! Form::text('email', null, ['placeholder' => __('core::labels.email'),'class' => 'form-control']) !!}
+                                        <label for="email">{{ _t('email') }}</label>
+                                        {!! Form::text('email', null, ['placeholder' => _t('email'),'class' => 'form-control']) !!}
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="password">{{ __('core::labels.password') }}</label>
-                                        {!! Form::password('password', ['placeholder' => __('core::labels.password'),'class' => 'form-control']) !!}
+                                        <label for="password">{{ _t('password') }}</label>
+                                        {!! Form::password('password', ['placeholder' => _t('password'),'class' => 'form-control']) !!}
                                     </div>
 
                                     <div class="custom-control custom-checkbox">
                                         <input class="custom-control-input" type="checkbox" name="remember"
                                                id="remember" {{ old('remember') ? 'checked' : '' }}>
                                         <label class="custom-control-label"
-                                               for="remember">{{ __('core::labels.remember_me') }}</label>
+                                               for="remember">{{ _t('remember_me') }}</label>
                                     </div>
 
                                     <div class="mt-3">
                                         <button class="btn btn-primary btn-block waves-effect waves-light"
-                                                type="submit">{{ __('core::labels.login') }}
+                                                type="submit">{{ _t('login') }}
                                         </button>
                                     </div>
                                     {!! Form::close() !!}
@@ -69,7 +69,7 @@
                         <div class="mt-5 text-center">
                             ©
                             <script>document.write(new Date().getFullYear())</script>
-                            Papiu
+                            ViralSoft
                             </p>
                         </div>
 
