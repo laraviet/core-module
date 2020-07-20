@@ -22,7 +22,7 @@
                                     <div class="col-7">
                                         <div class="text-primary p-4">
                                             <h5 class="text-primary">Welcome Back !</h5>
-                                            <p>Sign in to continue to ViralSoft.</p>
+                                            <p>Sign in to continue to {{ config('app.name') }}.</p>
                                         </div>
                                     </div>
                                     <div class="col-5 align-self-end">
@@ -67,9 +67,14 @@
                             </div>
                         </div>
                         <div class="mt-5 text-center">
-                            ©
-                            <script>document.write(new Date().getFullYear())</script>
-                            ViralSoft
+                            <p>
+                                {{ _t('no_account') }} <a href="{{ route('register') }}"
+                                                          class="font-weight-medium text-primary"> {{ _t('signup_now') }} </a>
+                            </p>
+                            <p>
+                                ©
+                                <script>document.write(new Date().getFullYear())</script>
+                                {{ config('app.name') }}
                             </p>
                         </div>
 

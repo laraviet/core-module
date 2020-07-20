@@ -45,6 +45,7 @@ class LabelTableSeeder extends Seeder
             ["key" => "remember_me", "vi" => ["value" => "Lưu đăng nhập"], "en" => ["value" => "Remember Me"]],
             ["key" => "login", "vi" => ["value" => "Đăng nhập"], "en" => ["value" => "Login"]],
             ["key" => "register", "vi" => ["value" => "Đăng ký"], "en" => ["value" => "Register"]],
+            ["key" => "signup_now", "vi" => ["value" => "Đăng ký ngay"], "en" => ["value" => "Signup Now"]],
             ["key" => "confirm_password", "vi" => ["value" => "Xác nhận mật khẩu"], "en" => ["value" => "Confirm Password"]],
             ["key" => "enter", "vi" => ["value" => "Thêm"], "en" => ["value" => "Enter"]],
             ["key" => "logout", "vi" => ["value" => "Đăng xuất"], "en" => ["value" => "Logout"]],
@@ -54,6 +55,8 @@ class LabelTableSeeder extends Seeder
             ["key" => "key", "vi" => ["value" => "Key"], "en" => ["value" => "Key"]],
             ["key" => "value", "vi" => ["value" => "Giá trị"], "en" => ["value" => "Value"]],
             ["key" => "complete", "vi" => ["value" => "Hoàn thành"], "en" => ["value" => "Complete"]],
+            ["key" => "no_account", "vi" => ["value" => "Chưa có tài khoản?"], "en" => ["value" => "Don't have an account?"]],
+            ["key" => "has_account", "vi" => ["value" => "Đã có tài khoản?"], "en" => ["value" => "Already have an account?"]],
         ];
         //
 

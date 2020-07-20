@@ -1,7 +1,7 @@
 @extends('layouts.admin.master-without-nav')
 
 @section('title')
-    {{ __('core::labels.register') }}
+    {{ _t('register') }}
 @endsection
 
 @section('body')
@@ -22,7 +22,7 @@
                                     <div class="col-7">
                                         <div class="text-primary p-4">
                                             <h5 class="text-primary">Welcome!</h5>
-                                            <p>Register to continue to Papiu.</p>
+                                            <p>Register to continue to {{ config('app.name') }}.</p>
                                         </div>
                                     </div>
                                     <div class="col-5 align-self-end">
@@ -41,28 +41,28 @@
                                     {!! Form::open(['route' => 'register','method'=>'POST', 'class' => 'form-horizontal']) !!}
 
                                     <div class="form-group">
-                                        <label for="name">{{ __('core::labels.name') }}</label>
-                                        {!! Form::text('name', null, ['placeholder' => __('core::labels.name'),'class' => 'form-control']) !!}
+                                        <label for="name">{{ _t('name') }}</label>
+                                        {!! Form::text('name', null, ['placeholder' => _t('name'),'class' => 'form-control']) !!}
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="email">{{ __('core::labels.email') }}</label>
-                                        {!! Form::text('email', null, ['placeholder' => __('core::labels.email'),'class' => 'form-control']) !!}
+                                        <label for="email">{{ _t('email') }}</label>
+                                        {!! Form::text('email', null, ['placeholder' => _t('email'),'class' => 'form-control']) !!}
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="password">{{ __('core::labels.password') }}</label>
-                                        {!! Form::password('password', ['placeholder' => __('core::labels.password'),'class' => 'form-control']) !!}
+                                        <label for="password">{{ _t('password') }}</label>
+                                        {!! Form::password('password', ['placeholder' => _t('password'),'class' => 'form-control']) !!}
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="password">{{ __('core::labels.confirm_password') }}</label>
-                                        {!! Form::password('password_confirmation', ['placeholder' => __('core::labels.confirm_password'),'class' => 'form-control']) !!}
+                                        <label for="password">{{ _t('confirm_password') }}</label>
+                                        {!! Form::password('password_confirmation', ['placeholder' => _t('confirm_password'),'class' => 'form-control']) !!}
                                     </div>
 
                                     <div class="mt-3">
                                         <button class="btn btn-primary btn-block waves-effect waves-light"
-                                                type="submit">{{ __('core::labels.register') }}
+                                                type="submit">{{ _t('register') }}
                                         </button>
                                     </div>
                                     {!! Form::close() !!}
@@ -71,9 +71,15 @@
                             </div>
                         </div>
                         <div class="mt-5 text-center">
-                            ©
-                            <script>document.write(new Date().getFullYear())</script>
-                            Papiu
+                            <p>{{ _t('has_account') }}
+                                <a href="{{ route('login') }}"
+                                   class="font-weight-medium text-primary">{{ _t('login') }}
+                                </a>
+                            </p>
+                            <p>
+                                ©
+                                <script>document.write(new Date().getFullYear())</script>
+                                {{ config('app.name') }}
                             </p>
                         </div>
 
