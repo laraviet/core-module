@@ -26,6 +26,7 @@ class LabelTableSeeder extends Seeder
             ["key" => "home", "vi" => ["value" => "Trang chủ"], "en" => ["value" => "Home"]],
             ["key" => "name", "vi" => ["value" => "Tên"], "en" => ["value" => "Name"]],
             ["key" => "email", "vi" => ["value" => "Email"], "en" => ["value" => "Email"]],
+            ["key" => "avatar", "vi" => ["value" => "Avatar"], "en" => ["value" => "Avatar"]],
             ["key" => "action", "vi" => ["value" => "Hành động"], "en" => ["value" => "Action"]],
             ["key" => "search", "vi" => ["value" => "Tìm kiếm"], "en" => ["value" => "Search"]],
             ["key" => "user", "vi" => ["value" => "Người dùng"], "en" => ["value" => "User"]],

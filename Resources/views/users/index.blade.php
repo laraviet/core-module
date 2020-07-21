@@ -53,6 +53,7 @@
                             <tr>
                                 <th>{{ _t('name') }}</th>
                                 <th>{{ _t('email') }}</th>
+                                <th>{{ _t('avatar') }}</th>
                                 <th>{{ _t('action') }}</th>
                             </tr>
                             </thead>
@@ -61,6 +62,10 @@
                                 <tr>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
+                                    <td>
+                                        <img
+                                            src="{{ url($user->avatar) }}"/>
+                                    </td>
                                     <td>
                                         <a href="{{ route('users.edit', [$user->id]) }}"
                                            class="mr-3 text-primary" data-toggle="tooltip"

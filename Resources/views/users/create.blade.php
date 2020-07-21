@@ -25,7 +25,7 @@
 
                     @include('common-components.forms.alert-error')
 
-                    {!! Form::open(['route' => 'users.store','method'=>'POST', 'class' => 'outer-repeater']) !!}
+                    {!! Form::open(['route' => 'users.store','method'=>'POST', 'class' => 'outer-repeater', 'enctype' => 'multipart/form-data']) !!}
                     <div data-repeater-list="outer-group" class="outer">
                         @include('core::users._form')
                     </div>

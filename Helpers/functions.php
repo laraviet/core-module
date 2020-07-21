@@ -86,3 +86,17 @@ if ( ! function_exists('_t')) {
         });
     }
 }
+
+if ( ! function_exists('defaultAvatar')) {
+    function defaultAvatar()
+    {
+        return "/skote/assets/images/users/avatar.jpeg";
+    }
+}
+
+if ( ! function_exists('noImage')) {
+    function noImage()
+    {
+        return "/skote/assets/images/no_image.jpg";
+    }
+}

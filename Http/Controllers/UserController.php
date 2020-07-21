@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Modules\Core\Entities\User;
 use Modules\Core\Exceptions\RepositoryException;
 use Modules\Core\Http\Requests\CreateUserRequest;
 use Modules\Core\Repositories\Contracts\UserRepositoryInterface;
@@ -104,6 +105,7 @@ class UserController extends Controller
             'name'     => 'required',
             'email'    => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',
+            'avatar'   => '',
         ]);
 
         $input = $request->all();
@@ -114,7 +116,8 @@ class UserController extends Controller
             $input = array_except($input, array('password'));
         }
 
-        $this->userRepository->updateById($id, $input);
+        $user = $this->userRepository->updateById($id, $input);
+        $this->uploadImage($user, $request, 'avatar', User::AVATAR_COLLECTION);
 
         return redirect()->route('users.index')
             ->with(config('core.session_success'), _t('user') . ' ' . _t('update_success'));

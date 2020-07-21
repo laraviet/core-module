@@ -11,6 +11,12 @@
         @slot('placeholder') {{ _t('enter') . ' ' . _t('email') . '...' }} @endslot
     @endcomponent
 
+    @component('common-components.forms.image')
+        @slot('field') avatar @endslot
+        @slot('label') Choose file @endslot
+        @slot('placeholder') {{ _t('enter') . ' ' . 'avatar' . '...' }} @endslot
+    @endcomponent
+
     @component('common-components.forms.password')
         @slot('field') password @endslot
         @slot('label') {{ _t('password') }} @endslot

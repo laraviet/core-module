@@ -5,6 +5,7 @@ namespace Modules\Core\Http\Controllers;
 use App\Http\Controllers\Controller as BaseController;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Modules\Core\Repositories\Contracts\BaseRepositoryInterface;
 
@@ -36,5 +37,13 @@ class Controller extends BaseController
     protected function sortAscById(Request $request): void
     {
         $request->attributes->set('sort', ['id' => 'asc']);
+    }
+
+    protected function uploadImage(Model $model, Request $request, $field, $collection = null)
+    {
+        if ($request->hasFile($field)) {
+            $model->clearMediaCollection($collection);
+            $model->addMediaFromRequest($field)->toMediaCollection($collection);
+        }
     }
 }

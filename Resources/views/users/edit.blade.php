@@ -25,7 +25,7 @@
 
                     @include('common-components.forms.alert-error')
 
-                    {!! Form::model($user, ['route' => ['users.update', $user->id],'method'=>'PATCH', 'class' => 'outer-repeater']) !!}
+                    {!! Form::model($user, ['route' => ['users.update', $user->id],'method'=>'PATCH', 'class' => 'outer-repeater', 'enctype' => 'multipart/form-data']) !!}
                     <div data-repeater-list="outer-group" class="outer">
                         @include('core::users._form')
                     </div>
