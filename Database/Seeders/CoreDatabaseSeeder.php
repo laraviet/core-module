@@ -18,5 +18,6 @@ class CoreDatabaseSeeder extends Seeder
 
         $this->call(PermissionTableSeeder::class);
         $this->call(AdminUserTableSeeder::class);
+        $this->call(LabelTableSeeder::class);
     }
 }
