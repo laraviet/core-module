@@ -5,16 +5,16 @@ namespace Modules\Core\Providers;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\ServiceProvider;
 use Modules\Core\Http\Middleware\VerLiMiddleware;
+use Modules\Core\Repositories\Cache\LabelCacheRepository;
 use Modules\Core\Repositories\Contracts\LabelRepositoryInterface;
 use Modules\Core\Repositories\Contracts\UserRepositoryInterface;
-use Modules\Core\Repositories\LabelRepository;
 use Modules\Core\Repositories\UserRepository;
 
 class CoreServiceProvider extends ServiceProvider
 {
     public $bindings = [
         UserRepositoryInterface::class  => UserRepository::class,
-        LabelRepositoryInterface::class => LabelRepository::class,
+        LabelRepositoryInterface::class => LabelCacheRepository::class,
     ];
     /**
      * @var string $moduleName

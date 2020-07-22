@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Core\Entities;
+namespace Modules\Core\Entities\Traits;
 
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
