@@ -15,6 +15,12 @@
         @slot('path') {{ isset($user) ? $user->avatar : noImage() }} @endslot
     @endcomponent
 
+    @component('common-components.forms.file')
+        @slot('field') avatar @endslot
+        @slot('label') Choose file @endslot
+        @slot('placeholder') {{ _t('enter') . ' ' . 'avatar' . '...' }} @endslot
+    @endcomponent
+
     @component('common-components.forms.password')
         @slot('field') password @endslot
         @slot('label') {{ _t('password') }} @endslot
@@ -25,11 +31,5 @@
         @slot('field') confirm-password @endslot
         @slot('label') {{ _t('confirm_password') }} @endslot
         @slot('placeholder') {{ _t('confirm_password') . '...' }} @endslot
-    @endcomponent
-
-    @component('common-components.forms.file')
-        @slot('field') avatar @endslot
-        @slot('label') Choose file @endslot
-        @slot('placeholder') {{ _t('enter') . ' ' . 'avatar' . '...' }} @endslot
     @endcomponent
 </div>
