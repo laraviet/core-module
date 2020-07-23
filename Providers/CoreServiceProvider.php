@@ -9,6 +9,9 @@ use Modules\Core\Repositories\Cache\LabelCacheRepository;
 use Modules\Core\Repositories\Cache\UserCacheRepository;
 use Modules\Core\Repositories\Contracts\LabelRepositoryInterface;
 use Modules\Core\Repositories\Contracts\UserRepositoryInterface;
+use Spatie\Permission\Middlewares\PermissionMiddleware;
+use Spatie\Permission\Middlewares\RoleMiddleware;
+use Spatie\Permission\Middlewares\RoleOrPermissionMiddleware;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -65,6 +68,21 @@ class CoreServiceProvider extends ServiceProvider
         ], 'config');
         $this->mergeConfigFrom(
             module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
+        );
+        $this->mergeConfigFrom(
+            module_path($this->moduleName, 'Config/laravel-model-caching.php'), 'laravel-model-caching'
+        );
+        $this->mergeConfigFrom(
+            module_path($this->moduleName, 'Config/medialibrary.php'), 'medialibrary'
+        );
+        $this->mergeConfigFrom(
+            module_path($this->moduleName, 'Config/themes.php'), 'themes'
+        );
+        $this->mergeConfigFrom(
+            module_path($this->moduleName, 'Config/translatable.php'), 'translatable'
+        );
+        $this->mergeConfigFrom(
+            module_path($this->moduleName, 'Config/modules.php'), 'modules'
         );
     }
 
@@ -142,5 +160,8 @@ class CoreServiceProvider extends ServiceProvider
     private function loadMiddleware()
     {
         $this->app['router']->pushMiddlewareToGroup('web', VerLiMiddleware::class);
+        $this->app['router']->aliasMiddleware('role', RoleMiddleware::class);
+        $this->app['router']->aliasMiddleware('permission', PermissionMiddleware::class);
+        $this->app['router']->aliasMiddleware('role_or_permission', RoleOrPermissionMiddleware::class);
     }
 }

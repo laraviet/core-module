@@ -4,17 +4,17 @@
 namespace Modules\Core\Http\Controllers;
 
 
+use App\Http\Controllers\Controller;
+use DB;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use DB;
+use Spatie\Permission\Models\Role;
 
 
 class RoleController extends Controller
