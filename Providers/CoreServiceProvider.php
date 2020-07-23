@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\ServiceProvider;
 use Modules\Core\Http\Middleware\VerLiMiddleware;
 use Modules\Core\Repositories\Cache\LabelCacheRepository;
+use Modules\Core\Repositories\Cache\UserCacheRepository;
 use Modules\Core\Repositories\Contracts\LabelRepositoryInterface;
 use Modules\Core\Repositories\Contracts\UserRepositoryInterface;
-use Modules\Core\Repositories\UserRepository;
 
 class CoreServiceProvider extends ServiceProvider
 {
     public $bindings = [
-        UserRepositoryInterface::class  => UserRepository::class,
+        UserRepositoryInterface::class  => UserCacheRepository::class,
         LabelRepositoryInterface::class => LabelCacheRepository::class,
     ];
     /**
