@@ -11,13 +11,13 @@ class UserCacheRepository extends BaseCacheRepository implements UserRepositoryI
 {
     /**
      * LabelRepository constructor.
-     * @param User $label
+     * @param User $user
      * @param CacheManager $cache
      * @param UserRepository $userRepository
      */
-    public function __construct(User $label, CacheManager $cache, UserRepository $userRepository)
+    public function __construct(User $user, CacheManager $cache, UserRepository $userRepository)
     {
-        $this->model = $label;
+        $this->model = $user;
         $this->cache = $cache;
         parent::__construct($userRepository);
     }

@@ -2,12 +2,6 @@
 
 @section('title') {{ _t('edit') . ' ' . _t('user') }} @endsection
 
-@section('css')
-    <!-- Bootstrap Rating css -->
-    <link rel="stylesheet" type="text/css"
-          href="{{ theme_url('assets/libs/bootstrap-rating/bootstrap-rating.min.css')}}">
-@endsection
-
 @section('content')
 
     @component('common-components.breadcrumb')
@@ -41,15 +35,5 @@
         </div>
     </div>
     <!-- end row -->
-
-@endsection
-
-@section('script')
-
-    <!-- Bootstrap rating js -->
-    <script src="{{ theme_url('assets/libs/bootstrap-rating/bootstrap-rating.min.js')}}"></script>
-
-    <!-- Range slider init js -->
-    <script src="{{ theme_url('assets/js/pages/rating-init.js')}}"></script>
 
 @endsection

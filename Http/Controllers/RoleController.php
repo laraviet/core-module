@@ -1,34 +1,45 @@
 <?php
 
-
 namespace Modules\Core\Http\Controllers;
 
-
-use App\Http\Controllers\Controller;
 use DB;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Modules\Core\Exceptions\RepositoryException;
+use Modules\Core\Http\Requests\CreateRoleRequest;
+use Modules\Core\Http\Requests\UpdateRoleRequest;
+use Modules\Core\Repositories\Contracts\PermissionRepositoryInterface;
+use Modules\Core\Repositories\Contracts\RoleRepositoryInterface;
 
 
 class RoleController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
+     * @var RoleRepositoryInterface
      */
-    function __construct()
+    private $roleRepository;
+    /**
+     * @var PermissionRepositoryInterface
+     */
+    private $permissionRepository;
+
+    /**
+     * Display a listing of the resource.
+     * @param RoleRepositoryInterface $roleRepository
+     * @param PermissionRepositoryInterface $permissionRepository
+     */
+    function __construct(RoleRepositoryInterface $roleRepository, PermissionRepositoryInterface $permissionRepository)
     {
         $this->middleware('permission:role-list');
         $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+        $this->roleRepository = $roleRepository;
+        $this->permissionRepository = $permissionRepository;
     }
 
 
@@ -40,10 +51,9 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id', 'DESC')->paginate(5);
+        $roles = $this->genPagination($request, $this->roleRepository);
 
-        return view('core::roles.index', compact('roles'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('core::roles.index', compact('roles'));
     }
 
 
@@ -54,7 +64,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permission = Permission::get();
+        $permission = $this->permissionRepository->all();
 
         return view('core::roles.create', compact('permission'));
     }
@@ -63,43 +73,17 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CreateRoleRequest $request
      * @return RedirectResponse
-     * @throws ValidationException
+     * @throws RepositoryException
      */
-    public function store(Request $request)
+    public function store(CreateRoleRequest $request)
     {
-        $this->validate($request, [
-            'name'       => 'required|unique:roles,name',
-            'permission' => 'required',
-        ]);
-
-
-        $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
-
+        $this->roleRepository->create($request->except('_token'));
 
         return redirect()->route('roles.index')
-            ->with('success', 'Role created successfully');
+            ->with(config('core.session_success'), _t('role') . ' ' . _t('create_success'));
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return Application|Factory|Response|View
-     */
-    public function show($id)
-    {
-        $role = Role::find($id);
-        $rolePermissions = Permission::join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
-            ->where("role_has_permissions.role_id", $id)
-            ->get();
-
-
-        return view('core::roles.show', compact('role', 'rolePermissions'));
-    }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -109,43 +93,35 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
-        $permission = Permission::get();
+        $role = $this->roleRepository->findById($id);
+        $permission = $this->permissionRepository->all();
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
             ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
             ->all();
 
+        foreach ($permission as $item) {
+            $item->checked = in_array($item->id, $rolePermissions);
+        }
 
-        return view('core::roles.edit', compact('role', 'permission', 'rolePermissions'));
+
+        return view('core::roles.edit', compact('role', 'permission'));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateRoleRequest $request
      * @param int $id
      * @return RedirectResponse|Response
-     * @throws ValidationException
+     * @throws RepositoryException
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRoleRequest $request, $id)
     {
-        $this->validate($request, [
-            'name'       => 'required',
-            'permission' => 'required',
-        ]);
-
-
-        $role = Role::find($id);
-        $role->name = $request->input('name');
-        $role->save();
-
-
-        $role->syncPermissions($request->input('permission'));
-
+        $this->roleRepository->updateById($id, $request->except(['_token', 'method']));
 
         return redirect()->route('roles.index')
-            ->with('success', 'Role updated successfully');
+            ->with(config('core.session_success'), _t('role') . ' ' . _t('update_success'));
     }
 
     /**
@@ -153,12 +129,13 @@ class RoleController extends Controller
      *
      * @param int $id
      * @return RedirectResponse|Response
+     * @throws RepositoryException
      */
     public function destroy($id)
     {
-        DB::table("roles")->where('id', $id)->delete();
+        $this->roleRepository->deleteById($id);
 
         return redirect()->route('roles.index')
-            ->with('success', 'Role deleted successfully');
+            ->with(config('core.session_success'), _t('role') . ' ' . _t('delete_success'));
     }
 }

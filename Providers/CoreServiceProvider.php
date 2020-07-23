@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\ServiceProvider;
 use Modules\Core\Http\Middleware\VerLiMiddleware;
 use Modules\Core\Repositories\Cache\LabelCacheRepository;
+use Modules\Core\Repositories\Cache\PermissionCacheRepository;
 use Modules\Core\Repositories\Cache\UserCacheRepository;
 use Modules\Core\Repositories\Contracts\LabelRepositoryInterface;
+use Modules\Core\Repositories\Contracts\PermissionRepositoryInterface;
+use Modules\Core\Repositories\Contracts\RoleRepositoryInterface;
 use Modules\Core\Repositories\Contracts\UserRepositoryInterface;
+use Modules\Core\Repositories\RoleRepository;
 use Spatie\Permission\Middlewares\PermissionMiddleware;
 use Spatie\Permission\Middlewares\RoleMiddleware;
 use Spatie\Permission\Middlewares\RoleOrPermissionMiddleware;
@@ -16,8 +20,10 @@ use Spatie\Permission\Middlewares\RoleOrPermissionMiddleware;
 class CoreServiceProvider extends ServiceProvider
 {
     public $bindings = [
-        UserRepositoryInterface::class  => UserCacheRepository::class,
-        LabelRepositoryInterface::class => LabelCacheRepository::class,
+        UserRepositoryInterface::class       => UserCacheRepository::class,
+        LabelRepositoryInterface::class      => LabelCacheRepository::class,
+        RoleRepositoryInterface::class       => RoleRepository::class,
+        PermissionRepositoryInterface::class => PermissionCacheRepository::class,
     ];
     /**
      * @var string $moduleName

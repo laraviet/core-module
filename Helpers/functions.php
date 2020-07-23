@@ -97,6 +97,6 @@ if ( ! function_exists('defaultAvatar')) {
 if ( ! function_exists('noImage')) {
     function noImage()
     {
-        return "/skote/assets/images/no_image.jpg";
+        return "/skote/assets/images/no-image.png";
     }
 }
