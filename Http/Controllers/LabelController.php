@@ -61,7 +61,7 @@ class LabelController extends Controller
         $this->labelRepository->create($request->all());
 
         return redirect()->route('labels.index')
-            ->with(config('core.session_success'), __('core::labels.label') . ' ' . __('core::labels.create_success'));
+            ->with(config('core.session_success'), _t('label') . ' ' . _t('create_success'));
     }
 
     /**
@@ -88,7 +88,7 @@ class LabelController extends Controller
         $this->labelRepository->updateById($id, $request->all());
 
         return redirect()->route('labels.index')
-            ->with(config('core.session_success'), __('core::labels.label') . ' ' . __('core::labels.update_success'));
+            ->with(config('core.session_success'), _t('label') . ' ' . _t('update_success'));
     }
 
     /**
@@ -102,6 +102,6 @@ class LabelController extends Controller
         $this->labelRepository->deleteById($id);
 
         return redirect()->route('labels.index')
-            ->with(config('core.session_success'), __('core::labels.label') . ' ' . __('core::labels.delete_success'));
+            ->with(config('core.session_success'), _t('label') . ' ' . _t('delete_success'));
     }
 }
