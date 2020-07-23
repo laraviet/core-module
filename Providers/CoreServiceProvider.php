@@ -69,21 +69,6 @@ class CoreServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
         );
-        $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/laravel-model-caching.php'), 'laravel-model-caching'
-        );
-        $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/medialibrary.php'), 'medialibrary'
-        );
-        $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/themes.php'), 'themes'
-        );
-        $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/translatable.php'), 'translatable'
-        );
-        $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/modules.php'), 'modules'
-        );
     }
 
     /**
