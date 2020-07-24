@@ -109,6 +109,10 @@ abstract class BaseCacheRepository implements BaseRepositoryInterface
      */
     public function advancedPaginate($filters = [], $sorts = [], $page = 1, $limit = null, $pageName = null): LengthAwarePaginator
     {
+        if ( ! empty($filters) || ! empty($sorts)) {
+            return $this->repository->advancedPaginate($filters, $sorts, $page, $limit, $pageName);
+        }
+
         return $this->cache->tags($this->genKey('paginate'))->remember($this->genKey("paginate.{$page}.{$limit}"), self::TTL, function () use ($filters, $sorts, $page, $limit, $pageName) {
             return $this->repository->advancedPaginate($filters, $sorts, $page, $limit, $pageName);
         });
