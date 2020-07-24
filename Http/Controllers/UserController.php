@@ -12,6 +12,7 @@ use Illuminate\View\View;
 use Modules\Core\Entities\User;
 use Modules\Core\Exceptions\RepositoryException;
 use Modules\Core\Http\Requests\CreateUserRequest;
+use Modules\Core\Repositories\Contracts\RoleRepositoryInterface;
 use Modules\Core\Repositories\Contracts\UserRepositoryInterface;
 
 class UserController extends Controller
@@ -20,14 +21,30 @@ class UserController extends Controller
      * @var UserRepositoryInterface
      */
     private $userRepository;
+    /**
+     * @var RoleRepositoryInterface
+     */
+    private $roleRepository;
 
     /**
      * UserController constructor.
      * @param UserRepositoryInterface $userRepository
+     * @param RoleRepositoryInterface $roleRepository
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository, RoleRepositoryInterface $roleRepository)
     {
         $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
+    }
+
+    private function getRoles()
+    {
+        $roles = [];
+        if (config('core.role_management')) {
+            $roles = $this->roleRepository->toArray('name', 'name');
+        }
+
+        return $roles;
     }
 
     /**
@@ -52,7 +69,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('core::users.create');
+        $roles = $this->getRoles();
+
+        return view('core::users.create', compact('roles'));
     }
 
 
@@ -69,9 +88,12 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
-
         $user = $this->userRepository->create($input);
-        $user->assignRole([config('role.default_new_user_role')]);
+        if (config('core.role_management')) {
+            $user->assignRole([$input['role']]);
+        } else {
+            $user->assignRole([config('core.default_new_user_role')]);
+        }
 
         return redirect()->route('users.index')
             ->with(config('core.session_success'), _t('user') . ' ' . _t('create_success'));
@@ -86,8 +108,12 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = $this->userRepository->findById($id);
+        $roles = $this->getRoles();
+        if (config('core.role_management')) {
+            $user->role = $user->roles->pluck('name', 'name')->all();
+        }
 
-        return view('core::users.edit', compact('user'));
+        return view('core::users.edit', compact('user', 'roles'));
     }
 
 
@@ -105,7 +131,8 @@ class UserController extends Controller
             'name'     => 'required',
             'email'    => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',
-            'avatar'   => '',
+            'avatar'   => 'nullable',
+            'role'     => 'nullable',
         ]);
 
         $input = $request->all();
@@ -118,6 +145,9 @@ class UserController extends Controller
 
         $user = $this->userRepository->updateById($id, $input);
         $this->uploadImage($user, $request, 'avatar', User::AVATAR_COLLECTION);
+        if (config('core.role_management')) {
+            $user->syncRoles([$input['role']]);
+        }
 
         return redirect()->route('users.index')
             ->with(config('core.session_success'), _t('user') . ' ' . _t('update_success'));

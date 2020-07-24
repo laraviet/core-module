@@ -54,6 +54,9 @@
                                 <th>{{ _t('name') }}</th>
                                 <th>{{ _t('email') }}</th>
                                 <th>{{ _t('avatar') }}</th>
+                                @if(config('core.role_management'))
+                                    <th>{{ _t('role') }}</th>
+                                @endif
                                 <th>{{ _t('action') }}</th>
                             </tr>
                             </thead>
@@ -66,6 +69,15 @@
                                         <img
                                             src="{{ url($user->avatar) }}"/>
                                     </td>
+                                    @if(config('core.role_management'))
+                                        <td>
+                                            @if(!empty($user->getRoleNames()))
+                                                @foreach($user->getRoleNames() as $v)
+                                                    <label class="badge badge-success">{{ $v }}</label>
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                    @endif
                                     <td>
                                         <a href="{{ route('users.edit', [$user->id]) }}"
                                            class="mr-3 text-primary" data-toggle="tooltip"

@@ -182,6 +182,9 @@ abstract class BaseCacheRepository implements BaseRepositoryInterface
      */
     public function deleteById($id): void
     {
+        $this->clearListCache();
+        $this->clearItemCache($id);
+
         $this->repository->deleteById($id);
     }
 
@@ -190,6 +193,9 @@ abstract class BaseCacheRepository implements BaseRepositoryInterface
      */
     public function updateById($id, array $attributes): Model
     {
+        $this->clearListCache();
+        $this->clearItemCache($id);
+
         return $this->repository->updateById($id, $attributes);
     }
 }

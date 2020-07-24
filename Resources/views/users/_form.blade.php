@@ -32,4 +32,14 @@
         @slot('label') {{ _t('confirm_password') }} @endslot
         @slot('placeholder') {{ _t('confirm_password') . '...' }} @endslot
     @endcomponent
+
+    @if(config('core.role_management'))
+        @component('common-components.forms.select', [
+            'options' => $roles,
+            'props' => ['class' => 'select2']
+        ])
+            @slot('field') role @endslot
+            @slot('label') {{ _t('role') }} @endslot
+        @endcomponent
+    @endif
 </div>
