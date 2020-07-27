@@ -100,3 +100,35 @@ if ( ! function_exists('noImage')) {
         return "/skote/assets/images/no-image.png";
     }
 }
+
+if ( ! function_exists('activeInactiveStatuses')) {
+    function activeInactiveStatuses()
+    {
+        return [
+            '1' => _t('active'),
+            '0' => _t('inactive'),
+        ];
+    }
+}
+
+if ( ! function_exists('activeInactiveHtml')) {
+    function activeInactiveHtml($statusName)
+    {
+        if ($statusName == _t('active')) {
+            return '<label class="badge badge-success">' . $statusName . '</label>';
+        }
+
+        return '<label class="badge badge-danger">' . $statusName . '</label>';
+    }
+}
+
+if ( ! function_exists('yesNoHtml')) {
+    function yesNoHtml($bool)
+    {
+        if ($bool) {
+            return '<i class="mdi mdi-check-bold font-size-18 text-success"></i>';
+        }
+
+        return '';
+    }
+}
