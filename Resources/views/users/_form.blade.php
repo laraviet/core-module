@@ -17,8 +17,8 @@
 
     @component('common-components.forms.file')
         @slot('field') avatar @endslot
-        @slot('label') Choose file @endslot
-        @slot('placeholder') {{ _t('enter') . ' ' . 'avatar' . '...' }} @endslot
+        @slot('label') {{ _t('avatar') }} @endslot
+        @slot('placeholder') {{ _t('enter') . ' ' . _t('avatar') . '...' }} @endslot
     @endcomponent
 
     @component('common-components.forms.password')

@@ -2,27 +2,20 @@
 
 namespace Modules\Core\Entities\Traits\Attribute;
 
+use Modules\Core\Entities\Traits\BaseImageProcess;
 use Modules\Core\Entities\User;
 
 trait UserAttribute
 {
+    use BaseImageProcess;
+
     public function getAvatarAttribute()
     {
-        return $this->getImage('noImage');
+        return $this->getImage('noImage', User::AVATAR_COLLECTION);
     }
 
     public function getDefaultAvatarAttribute()
     {
-        return $this->getImage('defaultAvatar');
-    }
-
-    private function getImage($callback)
-    {
-        $avatarUpload = $this->getMedia(User::AVATAR_COLLECTION)->first();
-        if ($avatarUpload) {
-            return $avatarUpload->getUrl('thumb');
-        }
-
-        return $callback();
+        return $this->getImage('defaultAvatar', User::AVATAR_COLLECTION);
     }
 }

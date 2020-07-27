@@ -4,12 +4,11 @@ namespace Modules\Core\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\Core\Database\Seeders\Traits\DisableForeignKeys;
-use Modules\Core\Database\Seeders\Traits\TruncateTable;
 use Modules\Core\Entities\Label;
 
 class LabelTableSeeder extends Seeder
 {
-    use DisableForeignKeys, TruncateTable;
+    use DisableForeignKeys;
 
     /**
      * Run the database seeds.
@@ -64,6 +63,13 @@ class LabelTableSeeder extends Seeder
             ["key" => "role", "vi" => ["value" => "Vai trò"], "en" => ["value" => "Role"]],
             ["key" => "permission", "vi" => ["value" => "Quyền"], "en" => ["value" => "Permission"]],
             ["key" => "user_management", "vi" => ["value" => "Quản lý người dùng"], "en" => ["value" => "User Management"]],
+            ["key" => "status", "vi" => ["value" => "Trạng thái"], "en" => ["value" => "Status"]],
+            ["key" => "parent", "vi" => ["value" => "Parent"], "en" => ["value" => "Parent"]],
+            ["key" => "description", "vi" => ["value" => "Mô tả"], "en" => ["value" => "Description"]],
+            ["key" => "active", "vi" => ["value" => "Active"], "en" => ["value" => "Active"]],
+            ["key" => "inactive", "vi" => ["value" => "Inactive"], "en" => ["value" => "Inactive"]],
+            ["key" => "thumbnail", "vi" => ["value" => "Thumbnail"], "en" => ["value" => "Thumbnail"]],
+            ["key" => "ecommerce", "vi" => ["value" => "Ecommerce"], "en" => ["value" => "Ecommerce"]],
         ];
 
         foreach ($labels as $label) {

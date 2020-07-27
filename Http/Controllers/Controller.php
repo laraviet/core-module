@@ -12,6 +12,11 @@ use Modules\Core\Repositories\Contracts\BaseRepositoryInterface;
 class Controller extends BaseController
 {
     /**
+     * @var
+     */
+    protected $defaultEagerLoad = [];
+
+    /**
      * @param Request $request
      * @param BaseRepositoryInterface $repository
      * @return LengthAwarePaginator|Collection
@@ -19,6 +24,8 @@ class Controller extends BaseController
     protected function genPagination(Request $request, BaseRepositoryInterface $repository)
     {
         $eagerLoad = $request->get('load', []);
+        $eagerLoad = array_merge($this->defaultEagerLoad, $eagerLoad);
+
         $repository->with($eagerLoad);
 
         if ($request->get('all')) {
@@ -32,6 +39,13 @@ class Controller extends BaseController
             $request->get(config('core.page_name'), 1),
             $request->get(config('core.per_page_name'), config('pagination.per_page_number'))
         );
+    }
+
+    protected function removeIfZero(Request $request, $key)
+    {
+        if ($request->get($key) == 0) {
+            return $request->request->remove($key);
+        }
     }
 
     protected function sortAscById(Request $request): void
