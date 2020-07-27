@@ -12,11 +12,16 @@ trait BaseImageProcess
      */
     public function getImage($callback, $collection = null, $size = 'thumb')
     {
-        $avatarUpload = $this->getMedia($collection)->first();
-        if ($avatarUpload) {
-            return $avatarUpload->getUrl($size);
+        $image = $this->getMedia($collection)->first();
+        if ($image) {
+            return $image->getUrl($size);
         }
 
         return $callback();
+    }
+
+    public function getImages($collection = null, $size = 'thumb')
+    {
+        return $this->getMedia($collection);
     }
 }
