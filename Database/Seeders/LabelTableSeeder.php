@@ -70,6 +70,8 @@ class LabelTableSeeder extends Seeder
             ["key" => "inactive", "vi" => ["value" => "Inactive"], "en" => ["value" => "Inactive"]],
             ["key" => "thumbnail", "vi" => ["value" => "Thumbnail"], "en" => ["value" => "Thumbnail"]],
             ["key" => "ecommerce", "vi" => ["value" => "Ecommerce"], "en" => ["value" => "Ecommerce"]],
+            ["key" => "image", "vi" => ["value" => "Ảnh"], "en" => ["value" => "Image"]],
+            ["key" => "quantity", "vi" => ["value" => "Số lượng"], "en" => ["value" => "Quantity"]],
         ];
 
         foreach ($labels as $label) {
