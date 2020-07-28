@@ -114,7 +114,7 @@ if ( ! function_exists('activeInactiveStatuses')) {
 if ( ! function_exists('activeInactiveHtml')) {
     function activeInactiveHtml($statusName)
     {
-        if ($statusName == _t('active')) {
+        if ($statusName == _t('active') || $statusName == _t('publish')) {
             return '<label class="badge badge-success">' . $statusName . '</label>';
         }
 
