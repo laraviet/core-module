@@ -614,4 +614,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
     {
         return $this->model::whereIn($column, $values)->update($attributes);
     }
+
+    protected function syncRelationship(Model $model, $attributes, $relation, $key = null)
+    {
+        $model->$relation()->sync($attributes[ $key ?? $relation ]);
+    }
 }
