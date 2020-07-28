@@ -41,6 +41,7 @@ abstract class BaseCacheRepository implements BaseRepositoryInterface
         $this->cache->tags($this->genKey('count'))->flush();
         $this->cache->tags($this->genKey('paginate'))->flush();
         $this->cache->tags($this->genKey('toArray'))->flush();
+        $this->cache->tags($this->genKey('toArrayWithNone'))->flush();
         $this->cache->tags($this->genKey('column'))->flush();
     }
 
@@ -158,6 +159,16 @@ abstract class BaseCacheRepository implements BaseRepositoryInterface
     {
         return $this->cache->tags($this->genKey("toArray"))->remember($this->genKey("array.{$key}.{$column}.{$scope}"), self::TTL, function () use ($key, $column, $scope) {
             return $this->repository->toArray($key, $column, $scope);
+        });
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toArrayWithNone($key, $column, $scope = null): array
+    {
+        return $this->cache->tags($this->genKey("toArrayWithNone"))->remember($this->genKey("array.{$key}.{$column}.{$scope}"), self::TTL, function () use ($key, $column, $scope) {
+            return $this->repository->toArrayWithNone($key, $column, $scope);
         });
     }
 

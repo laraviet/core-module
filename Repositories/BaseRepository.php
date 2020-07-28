@@ -593,6 +593,18 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    public function toArrayWithNone($key, $column, $scope = null): array
+    {
+        $list = $this->toArray($key, $column, $scope);
+
+        return array_merge([
+            0 => "None",
+        ], $list);
+    }
+
+    /**
      * @param $column
      * @param $values
      * @param $attributes

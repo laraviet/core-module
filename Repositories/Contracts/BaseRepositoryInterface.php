@@ -103,4 +103,12 @@ interface BaseRepositoryInterface
      * @return array
      */
     public function toArray($key, $column, $scope = null): array;
+
+    /**
+     * @param $key
+     * @param $column
+     * @param null $scope
+     * @return array
+     */
+    public function toArrayWithNone($key, $column, $scope = null): array;
 }
