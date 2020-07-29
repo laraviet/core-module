@@ -18,6 +18,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('roles', 'RoleController');
     Route::resource('users', 'UserController');
     Route::resource('/labels', 'LabelController');
+    Route::get('images/{id}', 'ImageController@destroy')->name('images.destroy');
 });
 
 Route::get('locale/switch/{locale}', 'LocaleController@update');

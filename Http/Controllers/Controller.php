@@ -60,4 +60,13 @@ class Controller extends BaseController
             $model->addMediaFromRequest($field)->toMediaCollection($collection);
         }
     }
+
+    protected function uploadImages(Model $model, Request $request, $field, $collection = null)
+    {
+        if ($request->hasFile($field)) {
+            $model->addMultipleMediaFromRequest([$field])->each(function ($item) use ($collection) {
+                $item->toMediaCollection($collection);
+            });
+        }
+    }
 }

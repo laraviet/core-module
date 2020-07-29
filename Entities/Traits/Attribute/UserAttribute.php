@@ -11,11 +11,11 @@ trait UserAttribute
 
     public function getAvatarAttribute()
     {
-        return $this->getImage('noImage', User::AVATAR_COLLECTION);
+        return $this->getImagePath('noImage', User::AVATAR_COLLECTION);
     }
 
     public function getDefaultAvatarAttribute()
     {
-        return $this->getImage('defaultAvatar', User::AVATAR_COLLECTION);
+        return $this->getImagePath('defaultAvatar', User::AVATAR_COLLECTION);
     }
 }
