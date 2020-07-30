@@ -3,12 +3,11 @@
 namespace Modules\Core\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Modules\Core\Providers\RouteServiceProvider;
 
 class ResetPasswordController extends Controller
@@ -40,10 +39,16 @@ class ResetPasswordController extends Controller
      *
      * @param Request $request
      * @param string|null $token
-     * @return Factory|View
+     * @param HasherContract $hasher
+     * @return string
      */
-    public function showResetForm(Request $request, $token = null)
+    public function showResetForm(Request $request, HasherContract $hasher, $token = null)
     {
+        $record = \DB::table('password_resets')->where('email', $request->email)->first();
+        if ( ! $hasher->check($token, $record->token)) {
+            return "Invalid token. Please contact administrator for more info";
+        }
+
         return view('core::auth.passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
