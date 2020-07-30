@@ -2,7 +2,8 @@
 
 namespace Modules\Core\Entities\Traits\Filterable;
 
-use Illuminate\Database\Query\Builder;
+
+use Illuminate\Database\Eloquent\Builder;
 
 trait LabelSearchFilterable
 {

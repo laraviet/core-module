@@ -25,7 +25,6 @@ class LabelController extends Controller
      */
     public function __construct(LabelRepositoryInterface $labelRepository)
     {
-
         $this->labelRepository = $labelRepository;
     }
 
