@@ -17,9 +17,8 @@ trait UpdateEntityTest
         $this->signIn();
 
         $this->accessEditEntityForm()
-            ->assertSee($this->entity->name)
-            ->assertSee($this->entity->statusName)
-            ->assertSee($this->entity->thumbnail);
+            ->assertStatus(200)
+            ->assertSee($this->entity->name ?? $this->entity->title);
     }
 
     /** @test */
