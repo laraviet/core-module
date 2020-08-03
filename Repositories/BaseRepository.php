@@ -605,18 +605,15 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param $column
-     * @param $values
+     * @param Model $model
      * @param $attributes
-     * @return
+     * @param $relation
+     * @param null $key
      */
-    public function updateWhereIn($column, $values, $attributes)
-    {
-        return $this->model::whereIn($column, $values)->update($attributes);
-    }
-
     protected function syncRelationship(Model $model, $attributes, $relation, $key = null)
     {
-        $model->$relation()->sync($attributes[ $key ?? $relation ]);
+        if (isset($attributes[ $relation ])) {
+            $model->{$relation}()->sync($attributes[ $key ?? $relation ]);
+        }
     }
 }
