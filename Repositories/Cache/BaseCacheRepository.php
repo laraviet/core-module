@@ -35,7 +35,7 @@ abstract class BaseCacheRepository implements BaseRepositoryInterface
         return $this->getModelClass() . '.' . $key;
     }
 
-    private function clearListCache()
+    protected function clearListCache()
     {
         $this->cache->tags($this->genKey('all'))->flush();
         $this->cache->tags($this->genKey('count'))->flush();
@@ -45,7 +45,7 @@ abstract class BaseCacheRepository implements BaseRepositoryInterface
         $this->cache->tags($this->genKey('column'))->flush();
     }
 
-    private function clearItemCache($id)
+    protected function clearItemCache($id)
     {
         $this->cache->tags($this->genKey($id))->flush();
     }

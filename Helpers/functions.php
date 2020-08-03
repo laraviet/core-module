@@ -111,14 +111,36 @@ if ( ! function_exists('activeInactiveStatuses')) {
     }
 }
 
+if ( ! function_exists('labelHtml')) {
+    function labelHtml($statusName, $className)
+    {
+        return '<label class="badge badge-' . $className . '">' . $statusName . '</label>';
+    }
+}
+
+if ( ! function_exists('labelSuccessHtml')) {
+    function labelSuccessHtml($statusName)
+    {
+        return labelHtml($statusName, 'success');
+    }
+}
+
+if ( ! function_exists('labelDangerHtml')) {
+    function labelDangerHtml($statusName)
+    {
+        return labelHtml($statusName, 'danger');
+    }
+}
+
 if ( ! function_exists('activeInactiveHtml')) {
     function activeInactiveHtml($statusName)
     {
-        if ($statusName == _t('active') || $statusName == _t('publish')) {
-            return '<label class="badge badge-success">' . $statusName . '</label>';
+        $successStatus = [_t('active'), _t('publish'), _t('paid'), _t('completed')];
+        if (in_array($statusName, $successStatus)) {
+            return labelSuccessHtml($statusName);
         }
 
-        return '<label class="badge badge-danger">' . $statusName . '</label>';
+        return labelDangerHtml($statusName);
     }
 }
 
