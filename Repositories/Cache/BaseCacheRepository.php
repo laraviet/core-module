@@ -35,19 +35,32 @@ abstract class BaseCacheRepository implements BaseRepositoryInterface
         return $this->getModelClass() . '.' . $key;
     }
 
+    private function getLocalesHelper()
+    {
+        return app('translatable.locales');
+    }
+
     protected function clearListCache()
     {
-        $this->cache->tags($this->genKey('all'))->flush();
-        $this->cache->tags($this->genKey('count'))->flush();
-        $this->cache->tags($this->genKey('paginate'))->flush();
-        $this->cache->tags($this->genKey('toArray'))->flush();
-        $this->cache->tags($this->genKey('toArrayWithNone'))->flush();
-        $this->cache->tags($this->genKey('column'))->flush();
+        $localeHelper = $this->getLocalesHelper();
+        foreach ($localeHelper->all() as $locale) {
+            App::setLocale($locale);
+            $this->cache->tags($this->genKey('all'))->flush();
+            $this->cache->tags($this->genKey('count'))->flush();
+            $this->cache->tags($this->genKey('paginate'))->flush();
+            $this->cache->tags($this->genKey('toArray'))->flush();
+            $this->cache->tags($this->genKey('toArrayWithNone'))->flush();
+            $this->cache->tags($this->genKey('column'))->flush();
+        }
     }
 
     protected function clearItemCache($id)
     {
-        $this->cache->tags($this->genKey($id))->flush();
+        $localeHelper = $this->getLocalesHelper();
+        foreach ($localeHelper->all() as $locale) {
+            App::setLocale($locale);
+            $this->cache->tags($this->genKey($id))->flush();
+        }
     }
 
     /**
