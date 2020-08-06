@@ -5,7 +5,7 @@ namespace Modules\Core\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Modules\Core\Database\Seeders\Traits\DisableForeignKeys;
 use Modules\Core\Database\Seeders\Traits\TruncateTable;
-use Spatie\Permission\Models\Permission;
+use Modules\Core\Entities\Permission;
 use Spatie\Permission\PermissionRegistrar;
 
 class PermissionTableSeeder extends Seeder

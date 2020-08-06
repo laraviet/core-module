@@ -2,8 +2,8 @@
 
 namespace Modules\Core\Repositories;
 
+use Modules\Core\Entities\Permission;
 use Modules\Core\Repositories\Contracts\PermissionRepositoryInterface;
-use Spatie\Permission\Models\Permission;
 
 class PermissionRepository extends BaseRepository implements PermissionRepositoryInterface
 {

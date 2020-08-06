@@ -46,8 +46,18 @@ class CoreServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->registerFactories();
-        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+        if ( ! config('core.saas_enable')) {
+            $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+        }
         $this->loadMiddleware();
+
+        if (config('core.saas_enable')) {
+            $this->app->bind(\Modules\Core\Entities\User::class, \Modules\Core\Entities\Tenants\User::class);
+            $this->app->bind(\Modules\Core\Entities\Label::class, \Modules\Core\Entities\Tenants\Label::class);
+            $this->app->bind(\Modules\Core\Entities\LabelTranslation::class, \Modules\Core\Entities\Tenants\LabelTranslation::class);
+            $this->app->bind(\Modules\Core\Entities\Role::class, \Modules\Core\Entities\Tenants\Role::class);
+            $this->app->bind(\Modules\Core\Entities\Permission::class, \Modules\Core\Entities\Tenants\Permission::class);
+        }
     }
 
     /**

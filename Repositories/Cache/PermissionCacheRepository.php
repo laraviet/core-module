@@ -3,9 +3,9 @@
 namespace Modules\Core\Repositories\Cache;
 
 use Illuminate\Cache\CacheManager;
+use Modules\Core\Entities\Permission;
 use Modules\Core\Repositories\Contracts\PermissionRepositoryInterface;
 use Modules\Core\Repositories\PermissionRepository;
-use Spatie\Permission\Models\Permission;
 
 class PermissionCacheRepository extends BaseCacheRepository implements PermissionRepositoryInterface
 {

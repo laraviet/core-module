@@ -10,4 +10,5 @@ return [
     'session_locale'        => 'applocale',
     'role_management'       => false,
     'default_new_user_role' => 'User', //'User' , 'Admin'
+    'saas_enable'           => true,
 ];

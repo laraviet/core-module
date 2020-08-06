@@ -27,7 +27,7 @@ abstract class BaseCacheRepository implements BaseRepositoryInterface
      */
     private function getModelClass()
     {
-        return get_class($this->model) . '.' . App::getLocale();
+        return get_class($this->model) . '.' . App::getLocale() . '.' . $this->model->getConnection()->getDatabaseName();
     }
 
     private function genKey($key)

@@ -3,8 +3,8 @@
 namespace Modules\Core\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Core\Entities\Role;
 use Modules\Core\Repositories\Contracts\RoleRepositoryInterface;
-use Spatie\Permission\Models\Role;
 
 class RoleRepository extends BaseRepository implements RoleRepositoryInterface
 {

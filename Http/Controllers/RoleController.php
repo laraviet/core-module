@@ -95,7 +95,8 @@ class RoleController extends Controller
     {
         $role = $this->roleRepository->findById($id);
         $permission = $this->permissionRepository->all();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
+        $db = config('core.saas_enable') ? DB::connection('tenant')->table("role_has_permissions") : DB::table("role_has_permissions");
+        $rolePermissions = $db->where("role_has_permissions.role_id", $id)
             ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
             ->all();
 

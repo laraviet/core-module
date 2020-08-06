@@ -13,8 +13,15 @@ class UpdateRoleRequest extends FormRequest
      */
     public function rules()
     {
+        if (config('core.saas_enable')) {
+            return [
+                'name'       => "required|unique:tenant.roles,name," . $this->role,
+                'permission' => 'required',
+            ];
+        }
+
         return [
-            'name'       => 'required|unique:roles,name',
+            'name'       => 'required|unique:roles,name,' . $this->role,
             'permission' => 'required',
         ];
     }
