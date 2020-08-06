@@ -20,7 +20,7 @@ class AdminUserTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->enableForeignKeys();
+        $this->disableForeignKeys();
 
         $role = Role::create(['name' => 'Admin']);
         Role::create(['name' => 'User']);

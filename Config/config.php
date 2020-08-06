@@ -8,7 +8,7 @@ return [
     'session_success'       => 'success',
     'session_error'         => 'error',
     'session_locale'        => 'applocale',
-    'role_management'       => false,
     'default_new_user_role' => 'User', //'User' , 'Admin'
-    'saas_enable'           => true,
+    'role_management'       => false,
+    'saas_enable'           => false,
 ];
